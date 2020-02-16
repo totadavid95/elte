@@ -3,7 +3,7 @@
 
 Ez az oldal összefoglalja a Szerveroldali webprogramozás gyakorlathoz szükséges tudnivalókat.
 
-## Gyakorlat helye, ideje (3-as csoport)
+## Gyakorlat ideje, helye (3-as csoport)
 - Hétfő 8:30, Déli épület 00-412 (PC6)
 
 ## A gyakorlat tematikája
@@ -104,10 +104,10 @@ Mindkét esetben ki kell írja a telepített verzió adatait.
 Ez a default szerkesztőnk, de nyugodtan lehet bármi mást használni, ha valakinek az szimpatikusabb, vagy azt szokta meg. Labor gépeken Asztalon kint van az ikonja.
 
  Az alábbi kiegészítőket ajánlott telepíteni:
-- [PHP IntelliSense](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-intellisense) (Felix Becker) (felixfbecker.php-intellisense)
-- [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) (Felix Becker) (felixfbecker.php-debug)
+- [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+- [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug)
 
-A PHP Debug működéséhez szükség van az XDebug-ra is (az automatikus telepítő script felrakja)
+A PHP Debug működéséhez szükség van az XDebug-ra is (az automatikus telepítő script felrakja, de le van írva a kézi telepítés menete is)
 
 ## Új Laravel projekt készítése
 

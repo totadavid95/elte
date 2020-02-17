@@ -6,6 +6,9 @@ Ez az oldal összefoglalja a Szerveroldali webprogramozás gyakorlathoz szüksé
 ## Gyakorlat ideje, helye (3-as csoport)
 - Hétfő 8:30, Déli épület 00-412 (PC6)
 
+- ![nothing to see here](https://people.inf.elte.hu/totadavid95/images/email.png)
+
+
 ## A gyakorlat tematikája
 
 - Függvénykönyvtárak használata

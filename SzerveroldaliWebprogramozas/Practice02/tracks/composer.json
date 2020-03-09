@@ -1,0 +1,8 @@
+{
+    "require": {
+        "rakibtg/sleekdb": "^1.5",
+        "rakit/validation": "^1.2",
+        "league/plates": "^3.3",
+        "pecee/simple-router": "4.2.0.6"
+    }
+}

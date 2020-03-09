@@ -112,18 +112,83 @@ Ez a default szerkesztőnk, de nyugodtan lehet bármi mást használni, ha valak
 
 A PHP Debug működéséhez szükség van az XDebug-ra is (az automatikus telepítő script felrakja, de le van írva a kézi telepítés menete is)
 
-## Új Laravel projekt készítése
+## Alapvető git ismeretek
+[https://git-scm.com/docs/gittutorial](https://git-scm.com/docs/gittutorial)
+
+## Laravel projektekhez szükséges ismeretek
+
+### Projekt létrehozása
 
 Az alábbi parancsot kell kiadnunk, és a projektünk megadott nevével létrejön egy mappa, benne egy default laravel projekttel:
 
-`composer create-project --prefer-dist laravel/laravel projekt-neve`
+`composer create-project --prefer-dist laravel/laravel PROJEKT NEVE`
 
 Ez egy kicsit hosszabb, pár perces folyamat is lehet, mire minden szükséges modul letöltődik.
 
-### Laravel projekt elindítása
-A projekt mappájában kell kiadni az alábbi parancsot:
-`php artisan serve`
+### Projekt elindítása
+A projekt mappájában kell kiadni az alábbi parancsot: `php artisan serve`
+Ha minden rendben ment, a projektünk elérhető lesz a [http://127.0.0.1:8000 ](http://127.0.0.1:8000) (vagy, ha jobban tetszik, a [http://localhost:8000 ](http://localhost:8000)) címen keresztül.
 
-## Egyéb
+### Projekt beállítása git-ről való letöltés után
+1. Composer csomagok telepítése: `composer install`
+2. npm csomagok telepítése, ha vannak: `npm install`
+3. **.env** fájl készítése (az **.env** fájl biztonsági okok miatt a Laravel beállításai alapján nem kerül a repoba, csak az **.env.example**, így azt kell másolni): 
+    - Windowson:
+  `copy .env.example .env`
+    - Linuxon:
+  `cp .env.example .env`
+4. Titkosítási kulcs generálása: `php artisan key:generate` (**.env** fájlunkon belül az `APP_KEY=...`)
+5. Projekt indítása: `php artisan serve`
+
+### SQLite adatbázis beállítása
+- Az **.env** fájlban a **DB_** kezdetű sorok törlése, vagy kommentezése
+- A projekt **database** mappájában létre kell hozni a **database.sqlite** állományt (csak egy üres fájlt ezzel a névvel)
+- A **config/database.php** fájlban a **default** értékének az **sqlite**-ot kell megadni
+
+### Tinker
+A Tinker egy hasznos eszköz, mert parancssoron keresztül széles hozzáférést biztosít az alkalmazásunkhoz. A következő paranccsal hívható elő: `php artisan tinker`
+
+### Egyéb parancsok
+
+Az Artisan rengeteg parancsot tartalmaz, amit tudunk használni a projektünk fejlesztése során. A teljesség igénye nélkül néhány fontosabb, gyakorlatokon is használt parancs:
+
+- Új controller készítése: `php artisan make:controller NÉV`
+- Új modell készítése:  `php artisan make:model NÉV`
+- Új migration generálása: `php artisan make:migration NÉV`
+  - Bővebben: [https://laravel.com/docs/7.x/migrations#generating-migrations](https://laravel.com/docs/7.x/migrations#generating-migrations)
+- Migration: `php artisan migrate`
+
+Az összes Artisan parancs előhívható a `php artisan list` kiadásával, illetve a hozzá tartozó dokumentáció elolvasható ezen a linken: [https://laravel.com/docs/7.x/artisan](https://laravel.com/docs/7.x/artisan)
+
+### Fontosabb mappák, fájlok
+
+A teljesség igénye nélkül pár fontosabb mappa vagy fájl.
+
+- Models: **./app/**
+- Controllers: **./app/http/controllers/**
+- Views: **./resources/views/** 
+- Routes: **./routes/web.php** 
+- Adatbázis / Database: **./database/database.sqlite** 
+- Migrations: **./database/migrations/** 
+- Seeds: **./database/seeds/** 
+- Composer csomagok: **./vendor/**
+- npm csomagok: **./node_modules/**
+
+A teljes projektszerkezet: [https://laravel.com/docs/7.x/structure](https://laravel.com/docs/7.x/structure)
+
+## DB Browser for SQLite
+
+Hasznos segédprogram az SQLite adatbázis kezeléséhez. Letölthető a következő linkről Windowsra és Linuxra is egyaránt: [https://sqlitebrowser.org/dl/](https://sqlitebrowser.org/dl/)
+
+Ha nem akarod telepíteni, választ a **.zip (no installer)** verziót. Windowson a **DB Browser for SQLite.exe** alkalmazást kell elindítani, miután kicsomagoltad.
+
+## Dokumentációk
+
+Ezeket a dokumentációkat érdemes használni.
+
+- Laravel dokumentáció: [https://laravel.com/docs](https://laravel.com/docs)
+- Bootstrap dokumentáció: [https://getbootstrap.com/docs](https://getbootstrap.com/docs)  
+
+## Canvas
 
 A tárggyal kapcsolatos további információk a [https://canvas.elte.hu/](https://canvas.elte.hu/) oldalon találhatók.

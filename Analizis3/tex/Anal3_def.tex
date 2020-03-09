@@ -1,0 +1,785 @@
+\documentclass[a4paper]{article}
+\usepackage[textwidth=170mm, textheight=230mm, margin=20mm, bottom=25mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm, amssymb, hyperref}
+\usepackage[hu]{datetime}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{multicol}
+
+\DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+\makeatletter
+\DeclareMathSymbol{\m@thbbch@rC}{\mathord}{lettersA}{131}
+\DeclareMathSymbol{\m@thbbch@rN}{\mathord}{lettersA}{142}
+\DeclareMathSymbol{\m@thbbch@rQ}{\mathord}{lettersA}{145}
+\DeclareMathSymbol{\m@thbbch@rR}{\mathord}{lettersA}{146}
+\DeclareMathSymbol{\m@thbbch@rZ}{\mathord}{lettersA}{154}
+\makeatother
+\ExplSyntaxOn
+\NewDocumentCommand{\varmathbb}{m}
+{
+	\tl_map_inline:nn { #1 } { \use:c { m@thbbch@r##1 } }
+}
+\ExplSyntaxOff
+
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{colorlinks = true}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+\def\ZZ{\varmathbb{Z}}
+\def\QQ{\varmathbb{Q}}
+\def\RR{\varmathbb{R}}
+\def\CC{\varmathbb{C}}
+\def\NN{\varmathbb{N}}
+
+\newtheoremstyle{qstyle}{1.5em}{-1em}{\bfseries\boldmath}{}{\unboldmath\bfseries}{.}{ }{}
+\theoremstyle{qstyle}
+\newtheorem{question}{}{}
+\setlist[itemize]{topsep=0pt}
+
+\begin{document}
+	\begin{center}
+		{\Huge\textbf{Analízis 3. (B és C szakirány)}}\\
+		{\Huge Kidolgozott elméleti kérdéssor}
+	\end{center}
+	
+	A kidolgozást Tóta Dávid készítette Dr. Weisz Ferenc kérdéssora alapján, a dokumentum végén feltüntetett források segítségével. 
+	
+	\textbf{Jelen fájl ekkor lett frissítve: {\yyyymmdddate\today} \ \currenttime}\\
+	A legfrissebb verzió elérhető itt: \url{http://people.inf.elte.hu/totadavid95/Analizis3/Anal3_def.pdf} 
+	
+	Kéretik a félév végéig minden vasárnap este ellenőrizni a fenti linket, a folyamatos frissítés és a hibajavítások végett.
+	
+	Fontos, hogy ez \textbf{nem egy hivatalos, tanárok által lektorált és elfogadott kidolgozás!} A készítők, bár a legjobb tudásuk és szándékuk szerint jártak el, \textbf{nem vállalnak felelősséget} az itt leírtak helyességéért, következésképpen azért sem, ha valaki emiatt pontot veszít valamilyen számonkérésen.
+
+	\par\noindent\rule{\textwidth}{0.4pt}
+
+
+	\begin{question}
+		Definiálja a primitív függvényt.
+	\end{question}
+	Legyen $I \subset \R$ egy nyílt intervallum. Az $F:I\to\R$ függvény az $f:I\to\R$ egy primitív függvénye, ha $F\in D(I)$ és $F'(x)=f(x)  \quad  (x\in I)$.
+	
+	\begin{question}
+		Adjon meg olyan függvényt, amelynek \emph{nincs} primitív függvénye.
+	\end{question}
+	$f(x)=\mathrm{sign}(x)$   \quad  $(x \in \left(-1,1)\right)$
+	
+	\begin{question}
+		Definiálja az egy adott pontban eltűnő primitív függvény fogalmát.
+	\end{question}
+	Legyen $I \subset \R$ egy nyílt intervallum és $x_0 \in I$ egy adott pont. Az $F:I\to\R$ függvény az $f:I\to\R$ függvény $x_0$ pontban eltűnő primitív függvénye, ha $F(x_0)=0$ és $F'(x)=f(x)  \quad  (x\in I)$.
+	
+	\begin{question}
+		A primitív függvény létezésére vonatkozó szükséges feltétel.
+	\end{question}
+	Ha $I \subset \R$ nyílt intervallum és az $f:I\to\R$ függvénynek van primitív függvénye, akkor $f$ Darboux-tulajdonságú az $I$ intervallumon.
+	
+	\begin{question}
+		Milyen elégséges feltételt ismer primitív függvény létezésére?
+	\end{question}
+	Ha $I\subset\R$ nyílt intervallum és $f:I\to\R$ folytonos függvény, akkor $f$-nek létezik primitív függvénye.
+	
+	\begin{question}
+		Mit jelent egy függvény határozatlan integrálja?
+	\end{question}
+	Legyen $I\subset\R$ egy nyílt intervallum és $F:I\to\R$ a $f:I\to\R$ függvény egy primitív függvénye. A $f$ \emph{függvény határozatlan integrálja} a következő függvényhalmaz:
+	$$\int f := \{F+c \mid c\in\R \} \text{.} $$
+	
+	\begin{question}
+		Mit ért a határozatlan integrál linearitásán?
+	\end{question}
+	Legyen $I\subset\R$ egy nyílt intervallum. Ha az $f,g : I\to\R$ függvényeknek létezik primitív függvénye, akkor tetszőleges $\alpha,\beta\in\R$ mellett $(\alpha f+\beta g)$-nek is létezik primitív függvénye és
+	$$\int (\alpha f+\beta g) = \alpha \int f + \beta \int g \text{.}$$
+	
+	\newpage
+	
+	\begin{question}
+		Milyen állítást ismer hatványsor összegfüggvényének a primitív függvényéről?
+	\end{question}
+	Legyen
+	$$f(x) := \sum_{n=0}^{+\infty} \alpha_n (x-a)^n  \quad  (x\in K_R (a), R>0 ) \text{.} $$
+	Ekkor $f$-nek van primitív függvénye és
+	$$F(x) := \sum_{n=0}^{+\infty} \frac{\alpha_n}{n+1} (x-a)^{n+1} \quad (x\in K_R(a)) $$
+	a $f$ függvény egy primitív függvénye.
+	
+	\begin{question}
+		Mit mond ki a primitív függvényekkel kapcsolatos \emph{parciális integrálás tétele}?
+	\end{question}
+	Legyen $I\subset\R$ nyílt intervallum. Tegyük fel, hogy $f,g\in D(I)$ és $f'g$-nek létezik primitív függvénye. Ekkor $fg'$-nek is van primitív függvénye és
+	$$\int fg' = fg-\int f'g \text{.} $$
+	
+	\begin{question}
+		Hogyan szól a primitív függvényekkel kapcsolatos \emph{első helyettesítési szabály}?
+	\end{question}
+	Legyen $I,J \subset \R$ nyílt intervallum, $g \in D(I)$, $\mathcal{R}_g \subset J$ és $t_0 \in I$. Ha az $f : J \to \R$ függvénynek van primitív függvénye, akkor $(f \circ g) \cdot g'$-nek is van primitív függvénye és
+	$$ \int\limits_{t_0}(f \circ g) \cdot g' = \left(\; \int\limits_{g(t_0)} f \right) \circ g \text{.} $$
+	
+	\begin{question}
+		Fogalmazza meg a primitív függvényekkel kapcsolatos \emph{második helyettesítési szabályt}.
+	\end{question}
+	Legyen $I,J \subset \R$ nyílt intervallum; $g : I \to J$ bijekció, $g \in D(I)$, $g'(x) \neq 0 (x \in I)$; $f : J \to \R$ és $x_0 \in J$. Ha az $(f \circ g) \cdot g' : I \to \R$ függvénynek van primitív függvénye, akkor $f$-nek is van primitív függvénye és
+	$$\int\limits_{x_0} f = \left(\; \int\limits_{g^{-1}(x_0)} (f \circ g) \cdot g' \right) \circ g^{-1} \text{.} $$
+	
+	\begin{question}
+		Adjon meg legalább három olyan függvényt, amelyiknek a primitív függvénye nem elemi függvény.
+	\end{question}
+	$$\int \frac{\sin(x)}{x} dx $$
+	$$\int \frac{\cos(x)}{x} dx $$
+	$$\int e^{-x^2} dx $$
+	
+	\begin{question}
+		Definiálja az intervallum egy felosztását.
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$. Ekkor az $[a,b]$ intervallum felosztásán olyan véges $\tau = \{x_0, x_1, \dots, x_n \} \subset [a,b]$ halmazt értünk, amelyre $a = x_0 < x_1 < \dots < x_n = b$.
+	
+	\begin{question}
+		Mit jelent egy felosztás finomítása?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$ és $\tau_1, \tau_2 \subset [a,b]$ egy-egy felosztása $[a,b]$-nek. Ekkor $\tau_2$ finomítása $\tau_1$-nek, ha $\tau_1 \subset \tau_2$.
+	
+	\begin{question}
+		Mi az alsó közelítő összeg definíciója?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$, $f : [a,b] \to \R$ egy korlátos függvény, $\tau = \{x_0,x_1,\dots,x_n \} \subset [a,b]$ egy felosztása $[a,b]$-nek, $m_i := \inf\{f(x) \mid x_i \leq x \leq x_{i+1} (i = 0, 1, \dots, n-1) \}$. Ekkor
+	$$s(f,\tau) := \sum_{i=0}^{n-1} m_i(x_{i+1}-x_i) $$
+	az $f$ függvény $\tau$-hoz tartozó alsó közelítő összege.
+	
+	\begin{question}
+		Mi a felső közelítő összeg definíciója?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$, $f : [a,b] \to \R$ egy korlátos függvény, $\tau = \{x_0,x_1,\dots,x_n \} \subset [a,b]$ egy felosztása $[a,b]$-nek, $M_i := \sup \{f(x) \mid x_i \leq x \leq x_{i+1} (i = 0, 1, \dots, n-1) \}$. Ekkor
+	\[S(f,\tau) := \sum_{i=0}^{n-1} M_i(x_{i+1}-x_i) \]
+	az $f$ függvény $\tau$-hoz tartozó felső közelítő összege.
+	
+	\begin{question}
+		Mi történik egy alsó közelítő összeggel, ha a neki megfelelő felosztást finomítjuk?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$, $f : [a,b] \to \R$ egy korlátos függvény. Ha $\tau_1, \tau_2 \subset [a,b]$ egy-egy felosztása $[a,b]$-nek, $s(f,\tau_1), s(f,\tau_2)$ a megfelelő alsó közelítő összegek és $\tau_2$ finomítása $\tau_1$-nek, akkor $s(f,\tau_1) \leq s(f,\tau_2)$.   
+	
+	\begin{question}
+		Mi történik egy felső közelítő összeggel, ha a neki megfelelő felosztást finomítjuk?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$, $f : [a,b] \to \R$ egy korlátos függvény. Ha $\tau_1, \tau_2 \subset [a,b]$ egy-egy felosztása $[a,b]$-nek, $S(f,\tau_1), S(f,\tau_2)$ a megfelelő felső közelítő összegek és $\tau_2$ finomítása $\tau_1$-nek, akkor $S(f,\tau_1) \geq S(f,\tau_2)$. 
+	
+	\begin{question}
+		Milyen viszony van az alsó és a felső közelítő összegek között?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$, $f : [a,b] \to \R$ egy korlátos függvény. Ha $\tau_1, \tau_2 \subset [a,b]$ egy-egy felosztása $[a,b]$-nek, $s(f,\tau_1), S(f,\tau_2)$ a megfelelő alsó, valamint felső közelítő összegek, akkor $s(f,\tau_1) \leq S(f,\tau_2)$.
+	
+	\begin{question}
+		Mi a \emph{Darboux-féle alsó integrál} definíciója?
+	\end{question}
+	Legyen $a,b \in \R$, $a<b$, $f:[a,b] \to \R$ korlátos függvény és valamely $\tau \subset [a,b]$ felosztás esetén $s(f,\tau)$ az $f$ függvény $\tau$-hoz tartozó alsó közelítő összege. Jelölje $\mathcal{F}([a,b])$ az $[a,b]$ felosztásainak a halmazát. Ekkor az $\{s(f,\tau) \mid \tau\in \mathcal{F}([a,b])\}$ halmaz felülről korlátos, ezért létezik szuprémuma. Az
+	$$I_*(f) := \sup \{s(f,\tau) \mid \tau \in \mathcal{F}([a,b])\} $$
+	számot az $f$ függvény \emph{Darboux-féle alsó integráljának} nevezzük.
+	
+	\begin{question}
+		Mi a \emph{Darboux-féle felső integrál} definíciója?
+	\end{question}
+	Legyen $a,b \in \R$, $a<b$, $f:[a,b] \to \R$ korlátos függvény és valamely $\tau \subset [a,b]$ felosztás esetén $S(f,\tau)$ az $f$ függvény $\tau$-hoz tartozó felső közelítő összege. Jelölje $\mathcal{F}([a,b])$ az $[a,b]$ felosztásainak a halmazát. Ekkor az $\{S(f,\tau) \mid \tau\in \mathcal{F}([a,b)]\}$ halmaz alulról korlátos, ezért létezik infimuma. Az
+	$$I^{*}(f) := \inf \{S(f,\tau) \mid \tau \in \mathcal{F}([a,b])\} $$
+	számot az $f$ függvény \emph{Darboux-féle felső integráljának} nevezzük.
+	
+	\begin{question}
+		Mikor nevezünk egy függvényt (Riemann)-integrálhatónak?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$ és $f : [a,b] \to \R$ egy korlátos függvény, $I_*(f)$, ill. $I^*(f)$ az $f$ függvény Darboux-féle alsó, ill. felső integrálja. Ekkor $f$ \emph{Riemann-integrálható} az $[a,b]$ intervallumon (jelekkel: $f \in R[a,b]$), ha $I_*(f) = I^*(f)$.
+	
+	\begin{question}
+		Hogyan értelmezi egy függvény határozott (vagy Riemann-) integrálját?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$ és $f : [a,b] \to \R$ egy korlátos függvény, $I_*(f)$, ill. $I^*(f)$ az $f$ függvény Darboux-féle alsó, ill. felső integrálja. Ha $I_*(f) = I^{*}(f)$, akkor az $f$ függvény határozott (vagy Riemann-) integrálja az $I_* = I^{*}(f)$ valós szám.
+	
+	\begin{question}
+		Adjon meg egy példát \emph{nem integrálható} függvényre. 
+	\end{question}
+	Legyen
+	$$
+	f(x) := 
+	\begin{cases}
+	1, \text{ ha } x \in \Q \\
+	0, \text{ ha } x \in \R \setminus \Q \text{.} \\
+	\end{cases}
+	$$
+	Ekkor $f \notin R[0,1]$.
+	
+	\begin{question}
+		Mi az \emph{oszcillációs összeg} definíciója? 
+	\end{question}
+	Legyen $a, b \in \R$, $a < b$, $f : [a,b] \to \R$ korlátos függvény, $\tau \subset [a,b]$ egy felosztása $[a,b]$-nek, $s(f,\tau)$, $S(f,\tau)$ az f függvény $\tau$-hoz tartozó alsó, ill. felső közelítő összege. Ekkor $\Omega(f,\tau) := S(f,\tau) - s(f,\tau)$ az $f$ függvény $\tau$ felosztásához tartozó oszcillációs összege.
+	
+	\begin{question}
+		Hogyan szól a Riemann-integrálhatósággal kapcsolatban tanult kritérium az oszcillációs
+		összegekkel megfogalmazva?  
+	\end{question}
+	Legyen $a, b \in \R$, $a < b$, $f : [a,b] \to \R$ korlátos függvény és valamely $\tau \subset [a,b]$ felosztás esetén $\Omega(f,\tau)$ az $f$ függvény $\tau$-hoz tartozó oszcillációs összege. Ekkor
+	$$
+	f \in R[a,b] \Longleftrightarrow \forall \varepsilon > 0 \quad \exists\tau \in F[a,b]: \quad \Omega(f,\tau) < \varepsilon \text{.}
+	$$
+	
+	\begin{question}
+		Felosztássorozatok segítségével adja meg a Riemann-integrálhatóság egy ekvivalens
+		átfogalmazását.  
+	\end{question}
+	Egy korlátos $f : [a,b] \to \R$ függvény akkor és csak akkor integrálható $[a,b]$-n és integrálja $I$, ha az $[a,b]$ intervallumnak van olyan $(\tau_{n})$ felosztássorozata, amelyre
+	$$
+	\lim\limits_{n \to +\inf} s(f,\tau_{n}) = \lim\limits_{n \to +\inf} S(f,\tau_{n}) = I	
+	$$
+	teljesül.
+	
+	\begin{question}
+		Hogyan szól a Riemann-integrálható függvények összegével kapcsolatban tanult tétel?
+	\end{question}
+	Ha $f, g \in R[a,b]$, akkor $f + g \in R[a,b]$.
+	
+	\begin{question}
+		Hogyan szól a Riemann-integrálható függvények szorzatával kapcsolatban tanult tétel?
+	\end{question}
+	Ha $f, g \in R[a,b]$, akkor $fg \in R[a,b]$.
+	
+	\begin{question}
+		Hogyan szól a Riemann-integrálható függvények hányadosával kapcsolatban tanult tétel?
+	\end{question}
+	Legyen $f, g \in R[a,b]$ tetszőleges és tegyük fel, hogy valamilyen $m > 0$ számmal $|g(x)| \ge m \quad (x \in [a,b])$. Ekkor $\frac{f}{g} \in R[a,b]$.
+	
+	\begin{question}
+		Mit ért a Riemann-integrál intervallum szerinti additivitásán?
+	\end{question}
+	Tegyük fel, hogy $f \in R[a,b]$ és $c \in (a,b)$ egy tetszőleges pont. Ekkor
+	$$
+	f \in R[a,c], f \in R[c,b], \quad \text{és} \quad \int_{a}^{b} f = \int_{a}^{c} f + \int_{c}^{b} f \text{.}
+	$$
+	
+	\begin{question}
+		Mi a kapcsolat a folytonosság és a Riemann-integrálhatóság között?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$. Ekkor $C[a,b] \subset R[a,b]$, de $C[a,b] \ne R[a,b]$.
+	
+	\begin{question}
+		Mi a kapcsolat a monotonitás és a Riemann-integrálhatóság között?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$. Ha $f$ monoton az $[a,b]$ intervallumon, akkor $f \in R[a,b]$.
+	
+	\begin{question}
+		Milyen tételt tanult Riemann-integrálható függvény megváltoztatását illetően? 
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$. Ha az $f \in R[a,b]$ függvény értékét \emph{véges sok} pontban tetszőlegesen megváltoztatjuk, akkor az így kapott $\widetilde{f}$ függvény is Riemann-integrálható és 
+	$$\int_{a}^{b} f = \int_{a}^{b} \widetilde{f} \text{.}$$
+	
+	\begin{question}
+		Mit ért azon, hogy a Riemann-integrál az integrandusban monoton?
+	\end{question}
+	Ha $f,g \in R[a,b]$ és $f \le g$, akkor $\int_{a}^{b} f \le \int_{a}^{b}$ g.
+	
+	\begin{question}
+		Mit lehet mondani Riemann-integrálható függvény abszolút értékéről integrálhatóság
+		szempontjából?
+	\end{question}
+	Ha $f \in R[a,b]$, akkor $|f| \in R[a,b]$ és $|\int_{a}^{b} f| \le \int_{a}^{b} |f|$.
+	
+	\begin{question}
+		Mi az integrálszámítás első középértéktétele?  
+	\end{question}
+	Legyen $f,g \in R[a,b]$, $g \ge 0$, $M = \sup R_{f}$ és $m = \inf R_{f}$. Ekkor
+	$$
+	m \int_{a}^{b} g \le \int_{a}^{b} fg \le M \int_{a}^{b} g \text{.}
+	$$
+	
+	\begin{question}
+		Mi az integrálszámítás második középértéktétele? 
+	\end{question}
+	Legyen $f \in C[a,b]$, $g \in R[a,b]$ és $g \ge 0$. Ekkor $\exists \xi \in [a,b]$, hogy
+	$$
+	\int_{a}^{b} fg = f(\xi) \int_{a}^{b} g \text{.}
+	$$
+	
+	\begin{question}
+		Hogyan szól a Newton-Leibniz-tétel? 
+	\end{question}
+	Ha $f \in R[a,b]$ és $f$-nek létezik primitív függvénye $[a,b]$-n, akkor $\int_{a}^{b} f = F(b) - F(a)$, ahol $F$ a $f$ függvény egy primitív függvénye.
+	
+	\begin{question}
+		Definiálja az integrálfüggvényt.
+	\end{question}
+	Legyen $f \in R[a,b]$ és $x_{0} \in [a,b]$. Ekkor a $F(x) := \int_{x_{0}}^{x} f(t)dt \quad (x \in [a,b])$ függvényt a $f$ függvény $x_{0}$-ban eltűnő integrálfüggvényének nevezzük.
+	
+	\begin{question}
+		Fogalmazza meg a differenciál- és integrálszámítás alaptételét.
+	\end{question}
+	Legyen $f \in R[a,b]$, $x_{0} \in [a,b]$, $F(x) := \int_{x_{0}}^{x} f(t)dt \quad (x \in [a,b])$. Ekkor
+	\begin{enumerate}
+		\item $F$ folytonos $[a,b]$-n;
+		\item ha $d \in (a,b)$ és $f$ folytonos $d$-ben, akkor $F$ differenciálható $d$-ben és $F'(d) = f(d)$.
+	\end{enumerate}
+	
+	\begin{question}
+		Mit ért parciális integráláson a Riemann-integrálokkal kapcsolatban?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$, $f,g : [a,b] \to \R$ és $f,g \in D$. Ha $f', g' \in R[a,b]$, akkor
+	$$
+	\int_{a}^{b} f'g = f(b)g(b) - f(a)g(a) - \int_{a}^{b} g'f \text{.}
+	$$
+	
+	\begin{question}
+		Mit mond ki a helyettesítéses integrálás tétele Riemann-integrálokra vonatkozóan? 
+	\end{question}
+	Legyen $\alpha, \beta, a, b \in \R$, $a < b$ és $\alpha < \beta$. Ha $f : [a,b] \to \R$, $g : [\alpha, \beta] \to [a,b]$ és $f$ folytonos, $g$ pedig folytonosan differenciálható, akkor
+	$$
+	\int_{g(\alpha)}^{g(\beta)} f = \int_{\alpha}^{\beta} (f \circ g)g' \text{.}
+	$$
+	
+	\begin{question}
+		Definiálja a metrikus teret.  
+	\end{question}
+	Az $(M, \varrho)$ rendezett párt metrikus térnek nevezzük, ha $M$ tetszőleges nemüres halmaz, $\varrho : M \times M \to \R$ pedig olyan függvény, amely a következő tulajdonságokkal rendelkezik:
+	\begin{itemize}
+		\item $\forall x,y \in M$ esetén $\varrho(x,y) \ge 0$;
+		\item $\varrho(x,y) = 0 \Longleftrightarrow x = y \quad (x,y \in M)$;
+		\item bármely $x,y \in M$ esetén $\varrho(x,y) = \varrho(y,x)$ \emph{(szimmetriatulajdonság)};
+		\item tetszőleges $x,y,z \in M$ elemekkel fennáll a
+		$$\varrho(x,y) \le \varrho(x,z) + \varrho(z,y)$$
+	\end{itemize}
+	háromszög egyenlőtlenség. A $\varrho$ leképezést \emph{távolságfüggvénynek} (vagy metrikának) mondjuk, a $\varrho(x,y)$ számot az $x$ és az $y$ pontok \emph{távolságának} nevezzük. 	
+	
+	\begin{question}
+		Mit jelent az, hogy egy normált térbeli halmaz korlátos?   
+	\end{question}
+	Az $(X, ||.||)$ normált tér $A \subset X$ részhalmazát korlátosnak nevezzük, ha
+	$$\exists r > 0 \text{ valós szám, hogy  } A \subset k_{r}(\boldsymbol{0})\text{.}$$
+		
+		\newpage 
+		
+	\begin{question}
+		Definiálja az $(X, ||.||)$ normált térben a konvergens sorozat fogalmát.
+	\end{question}
+	Az $(X, ||.||)$ normált tér egy $(a_{n})$ sorozata konvergens, ha 
+	$$\exists \alpha \in X, \forall \varepsilon > 0 \quad \exists n_{0} \in \N, \quad \forall n \ge n_{0}: \quad ||a_{n} - \alpha|| < \varepsilon \text{.}$$
+	Ha létezik ilyen $\alpha$, akkor az egyértelmű, és azt az $(a_{n})$ sorozat határértékének nevezzük, és az alábbi szimbólumok valamelyikével jelöljük:
+	$$\lim\limits_{n \to +\infty} a_{n} \stackrel{\hbox{$||.||$}}{\hbox{=}} \alpha \text{,} \quad\quad \lim(a_{n}) \stackrel{\hbox{$||.||$}}{\hbox{=}} \alpha \text{,} \quad\quad a_{n} \xrightarrow[n \to +\infty]{||.||} \alpha \text{.}$$
+	(Ha nem okoz félreértést, a norma jelét el lehet hagyni.)
+	
+	\begin{question}
+		Fogalmazza meg a normált térbeli konvergens sorozatok alaptulajdonságait.   
+	\end{question}
+	Legyen $(a_{n})$ az $(X,||.||)$ normált tér egy tetszőleges konvergens sorozata. Ekkor a következő állítások teljesülnek:
+	\begin{itemize}
+		\item Az $(a_{n})$ sorozat korlátos, azaz az értékkészlete korlátos $X$-beli halmaz.
+		\item $(a_{n})$ minden részsorozata is konvergens, és a határértéke megegyezik $(a_{n})$ határértékével.
+		\item Ha az $(a_{n})$ sorozatnak van két különböző $X$-beli elemhez tartozó részsorozata, akkor $(a_{n})$ divergens.
+	\end{itemize}
+	
+	\begin{question}
+		Mit jelent az, hogy két norma ekvivalens?   
+	\end{question}
+	Azt mondjuk, hogy az $X$ lineáris téren adott $||.||_{1}$ és $||.||_{2}$ norma ekvivalens (jelben $||.|| \sim ||.||_{2}$), ha léteznek olyan $m,M$ pozitív valós számok, hogy
+	$$m||x||_{1} \le ||x||_{2} \le M||x||_{1}$$
+	minden $x \in X$-re.
+	
+	\begin{question}
+		Milyen állítást ismer $\RR^n$-beli normák ekvivalenciájáról?    
+	\end{question}
+	Ha két norma ekvivalens, akkor konvergencia szempontjából a két norma között nincs különbség: mind a két normában ugyanazok lesznek a konvergens (divergens) sorozatok.
+	
+	\begin{question}
+		Hogyan jellemezhető $\RR^n$-beli sorozat konvergenciája a koordinátasorozatokkal?   
+	\end{question}
+	Legyen $n \in \N$ és $||.||$ egy tetszőleges norma az $\R^{n}$ lineáris téren. Ekkor az
+	$$(a_{k}) : \N \to \R^{n}, \quad\quad a_{k} := (a_{k}^{(1)}, a_{k}^{(2)}, \dots, a_{k}^{(n)}) \in \R^{n}$$
+	sorozat akkor és csak akkor konvergens az $(\R^{n}, ||.||)$ normált térben, és
+	$$\lim\limits_{k \to +\infty} a_{k} \stackrel{\hbox{$||.||$}}{\hbox{=}} \alpha = (a^{(1)}, a^{(2)},\dots,a^{(n)})\text{,}$$
+	ha minden $i=1,2,\dots,n$ esetén az $(a_{k}^{(i)})_{k \in \N}$ valós sorozat (az $i$-edik koordinátasorozat) konvergens, és
+	$$\lim\limits_{k \to +\infty} a_{k}^{(i)} = \alpha^{(i)}\text{.}$$
+	
+	\begin{question}
+		Mit jelent az, hogy egy normált térbeli sorozat Cauchy-sorozat?   
+	\end{question}
+	Az $(X, ||.||)$ normált térbeli $(a_{n})$ sorozat Cauchy-sorozat, ha
+	$$\forall \varepsilon > 0 \quad \exists n_{0} \in \N, \quad \forall m,n \ge n_{0} : \quad ||a_{n} - a_{m}|| < \varepsilon \text{.} \quad\quad (\forall n,m \in \N)$$
+	
+	\begin{question}
+		Milyen kapcsolat van normált térben a Cauchy-sorozatok és a konvergens sorozatok között?   
+	\end{question}
+	\begin{itemize}
+		\item Tetszőleges $(X, ||.||)$ normált térben minden konvergens sorozat Cauchy-sorozat is.
+		\item Az állítás megfordítása általában nem igaz: Van olyan $(X, ||.||)$ normált tér, hogy abban van divergens Cauchy-sorozat. 
+	\end{itemize}
+	
+	\begin{question}
+		Írja le a Banach-tér definícióját.   
+	\end{question}
+	Az $(X, ||.||)$ normált teret teljes normált térnek vagy Banach-térnek nevezzük, ha benne minden Cauchy-sorozat konvergens, vagyis a tér teljes, ha igaz benne a Cauchy-féle konvergenciakritérium, azaz
+	$$(a_{n}) \subset (X, ||.||) \text{ konvergens } \quad \Longleftrightarrow \quad (a_{n}) \subset (X, ||.||) \text{ Cauchy-sorozat. }$$
+	
+	\newpage
+	
+	\begin{question}
+		Fogalmazza meg $\RR^n$-ben a Cauchy-féle konvergenciakritériumot.  
+	\end{question}
+	Tetszőleges $n \in \N$ és minden $\R^n$-en értelmezett $||.||$ norma esetén az ($\R^{n}, ||.||$) normált térben igaz a Cauchy-féle konvergenciakritérium tétele, azaz az $(a_{n})$ valós sorozat akkor és csak akkor konvergens, ha $(a_{n})$ Cauchy-sorozat.
+	
+	\begin{question}
+		Mit állít $\RR^n$-ben a Bolzano-Weierstrass-féle kiválasztási tétel?   
+	\end{question}
+	Tetszőleges $n \in \N$ és minden $\R^n$-en értelmezett $||.||$ norma esetén az ($\R^{n}, ||.||$) normált térben igaz a Bolzano-Weierstrass-féle kiválasztási tétel, azaz minden korlátos valós sorozatnak van konvergens részsorozata.
+	
+	\begin{question}
+		Definiálja a normált terek közötti leképezések pontbeli folytonosságát.   
+	\end{question}
+	Legyen $(X, ||.||_{X})$ és $(Y, ||.||_{Y})$ normált tér. Azt mondjuk, hogy az $f \in X \to Y$ függvény folytonos az $a \in \mathcal{D}_{f}$ pontban (jelben $f \in C\{a\}$), ha
+	$$\forall \varepsilon > 0 \quad \exists \delta > 0, \quad \forall x \in k_{\delta}^{||.||_{X}}(a) \cap \mathcal{D}_{f} : \quad f(x) \in k_{\delta}^{||.||_{Y}}f(a)\text{,}$$
+	azaz, ha
+	$$\forall \varepsilon > 0 \quad \exists \delta > 0, \quad \forall x \in \mathcal{D}_{f}, \quad ||x-a||_{X} < \delta : \quad ||f(x) - f(a)||_{Y} < \varepsilon \text{.}$$
+	
+	\begin{question}
+		Hogyan szól a folytonosságra vonatkozó átviteli elv?   
+	\end{question}
+	Legyen $(X, ||.||_{X})$ és $(Y, ||.||_{Y})$ normált tér, $f \in X \to Y$ és $a \in \mathcal{D}_{f}$. Ekkor
+	\begin{itemize}
+		\item $f \in C\{a\} \Longleftrightarrow \forall (x_{n}) : \N \to \mathcal{D}_{f}$, $x_{n} $ $\xrightarrow[n \to +\infty]{||.||_{X}} a$ esetén $f(x_{n}) \xrightarrow[n \to +\infty]{||.||_{Y}} f(a)$.
+		\item Tegyük fel, hogy a $\mathcal{D}_{f}$-beli $(x_{n})$ sorozat az $a \in \mathcal{D}_{f}$ ponthoz konvergál és
+		
+		$$\lim\limits_{n \to +\infty} f(x_{n}) \ne f(a) \text{.} $$
+		
+	\end{itemize}
+	
+	Ekkor az $f$ függvény nem folytonos $a$-ban: $f \notin C\{a\}$.
+	
+	\begin{question}
+		Milyen tételt ismer $\RR^n \to \RR^m$-típusú függvények folytonosságáról?   
+	\end{question}
+	Legyen $n,m \in \N$, $f = (f_1, f_2, \dots, f_m) \in \R^n \to \R^m$ és $a \in \mathcal{D}_f$. Ekkor $f = (f_1, f_2, \dots, f_m) \in  \R^n \to \R^m \in C\{a\} \Longleftrightarrow f_i \in C\{a\} \quad (i = 1,2, \dots, m)$.
+	
+	\begin{question}
+		Fogalmazza meg a Weierstrass abszolút szélsőértékekre vonatkozó tételét.   
+	\end{question}
+	Legyen $n \in \N$ és tegyük fel, hogy
+	\begin{itemize}
+		\item $f \in \R^{n} \to \R^{1}$,
+		\item $\mathcal{D}_{f} \subset \R^{n}$ korlátos és zárt halmaz,
+		\item $f$ folytonos $\mathcal{D}_{f}$-en.
+	\end{itemize}
+	Ekkor $f$-nek vannak abszolút szélsőértékei, azaz
+	$$\exists x_{1} \in \mathcal{D}_{f} : f(x) \le f(x_{1}) \quad (\forall x \in \mathcal{D}_{f}) \quad \text{($x_{1}$ abszolút maximumhely);}$$
+	$$\exists x_{2} \in \mathcal{D}_{f} : f(x) \ge f(x_{2}) \quad (\forall x \in \mathcal{D}_{f}) \quad \text{($x_{2}$ abszolút minimumhely).}$$
+	
+	\begin{question}
+		Definiálja a normált térben a torlódási pont fogalmát.  
+	\end{question}
+	Legyen $(X, ||.||)$ normált tér. Az $a \in X$ pont az $A \subset X$ halmaz torlódási pontja (jelben $a \in A'$), ha
+	$$\forall k(a) \text{ esetén } (A \cap (k(a) \setminus {a})) \ne \emptyset \text{,}$$
+	azaz $a$ minden környezete tartalmaz $a$-tól különböző $A$-beli pontot.
+	
+	\newpage
+	
+	\begin{question}
+		Írja le normált terek közötti leképezésekre a határérték definícióját. 
+	\end{question}
+	Legyen $(X, ||.||_{X})$ és $(Y, ||.||_{Y})$ normált tér. Azt mondjuk, hogy az $f \in X \to Y$ függvénynek az $a \in \mathcal{D}'_{f}$ pontban \emph{van határértéke}, ha létezik olyan $A \in Y$, hogy az
+	$$\widetilde{f}(x) := \begin{cases}
+	f(x),& \text{ha } x \in \mathcal{D}_{f} \setminus \{a\}\\
+	A,              & \text{ha } x = a
+	\end{cases}$$
+	függvény folytonos az $a \in \mathcal{D}_{\widetilde{f}}$ pontban. Ha létezik ilyen $A$, akkor az egyértelmű, és azt az $f$ függvény $a$-beli határértékének nevezzük (jelölése: $\lim\limits_{a} f = A)$.
+	
+	\begin{question}
+		Fogalmazza meg a határértékekre vonatkozó átviteli elvet.   
+	\end{question}
+	Legyen $(X, ||.||_{X})$ és $(Y, ||.||_{Y})$ normált tér, $f \in X \to Y$ és $a \in \mathcal{D}'_{f}$. Ekkor
+	\begin{itemize}
+		\item $\lim\limits_{a} f = A \Longleftrightarrow \forall (x_{n}) : \N \to \mathcal{D}_{f} \setminus \{a\}, x_{n} \xrightarrow[n \to +\infty]{||.||_{X}} a$ esetén $f(x_{n}) \xrightarrow[n \to +\infty]{||.||_{Y}} A$.
+		\item Tegyük fel, hogy a $\mathcal{D}_{f} \setminus \{a\}$ halmazbeli $(x_{n})$ és $(u_{n})$ sorozatok mindegyike az $a \in \mathcal{D}'_{f}$ ponthoz konvergál és
+		$$\lim\limits_{n \to +\infty} f(x_{n}) \ne \lim\limits_{n \to +\infty} f(u_{n})\text{.}$$
+		Ekkor az $f$ függvénynek \emph{nincs határértéke} $a$-ban: $\nexists\lim\limits_{a} f$.
+	\end{itemize}
+	
+	\begin{question}
+		Definiálja $\RR^n \to \RR$ típusú függvény parciális deriváltját.   
+	\end{question}
+	Legyen $n \in \N, e_{1},\dots,e_{n}$ a kanonikus bázis $\R^{n}$-ben, $f \in \R^{n} \to \R^{1}$ és $a \in int\mathcal{D}_{f}$. Akkor mondjuk, hogy az $f$ függvénynek az $a$ pontban létezik az $i$-edik változó szerinti parciális deriváltja, ha az
+	$$F : k(0) \ni t \mapsto f(a+te_{i}) \quad (\in \R \to \R)$$
+	függvény deriválható a $0$ pontban. Az $F'(0)$ valós szám az $f$ függvény $i$-edik változó szerinti parciális deriváltja az $a$ pontban.
+	
+	\begin{question}
+		Mi az iránymenti derivált fogalma?   
+	\end{question}
+	Legyen $n \in \N$, $e \in \R^{n}$ egy adott vektor, $f \in \R^{n} \to \R$ és $a \in int \mathcal{D}_{f}$. Akkor mondjuk, hogy az $f$ függvénynek az $a$ pontban létezik az $e$ irányban vett iránymenti deriváltja, ha az
+	$$F : k(0) \ni t \mapsto f(a+te)$$
+	valós-valós függvény deriválható a $0$ pontban. Az $F'(0)$ valós számot az $f$ függvény $e$ iránymenti deriváltjának nevezzük az $a$ pontban, és a $\partial_{e}f(a)$ szimbólummal jelöljük.
+	
+	\begin{question}
+		Milyen tételt ismer az iránymenti derivált kiszámítására?   
+	\end{question}
+	Tegyük fel, hogy az $f \in \R^{n} \to \R$ függvény mindegyik változója szerinti parciális deriváltak léteznek és azok folytonosak az $a \in int\mathcal{D}_{f}$ pont egy környezetében. Ekkor $f$-nek minden $a$-ból induló $e \in \R^{n}$ irányban létezik az iránymenti deriváltja és
+	$$\partial_{e}f(a) = \langle f'(a), e \rangle = \sum_{k=1}^{n} \partial_{k}f(a) \cdot e^{k}\text{,}$$
+	ahol $e = (e^{1},e^{2},\dots,e^{n})$ egy egységvektor a $||.||_{2}$ normában, azaz
+	$$||e||_{2} = \sqrt{\sum_{k=1}^{n}|e^{(k)}|^{2}=1}\text{.}$$
+	
+	\begin{question}
+		Írja le az $f \in \RR^n \to \RR^m$ függvény totális deriválhatóságának definícióját.   
+	\end{question}
+	Az $f \in \R^{n} \to \R^{m} \quad (n,m \in \N)$ vektor-függvény totálisan deriválható az $a \in int\mathcal{D}_{f}$ pontban, ha
+	$$\exists A \in \R^{m \times n} \text{ mátrix és } \exists \varepsilon \in \R^{n} \to \R^{m}, \lim\limits_{h \to 0} \varepsilon(a+h) = 0 \text{ függvény, hogy }$$
+	$$f(a+h)-f(a) = A \cdot h + \varepsilon(a+h) \cdot ||h||$$
+	teljesül minden olyan $h = (h_1,\dots,h_n) \in \R^{n \times 1}$ vektorra, amelyre $a+h \in \mathcal{D}_{f}$, ahol $||.||$ tetszőleges norma az $\R^{n}$ lineáris téren. Ha létezik ilyen $A$ mátrix, akkor az egyértelmű. $A$-t az $f$ függvény $a$-beli deriváltmátrixának nevezzük, és az $f'(a)$ szimbólummal jelöljük.
+	
+	\begin{question}
+		Milyen ekvivalens átfogalmazást ismer a pontbeli deriválhatóságra?   
+	\end{question}
+	Legyen $f = (f_1, f_2, \dots, f_m) \in \R^n \to \R^m \quad (n,m \in \N)$ és $a \in \mathcal{D}_f$. Ekkor 
+	$$f \in D\{a\} \Longleftrightarrow \forall i = 1,2,\dots,m : f_i \in D\{a\} \text{.}$$
+	
+	\begin{question}
+		Milyen tételt ismer a deriváltmátrix előállítására?   
+	\end{question}
+	Tegyük fel, hogy az $f = (f_{1}, f_{2},\dots,f_{m}) \in \R^{n} \to \R^{m}$ függvény totálisan deriválható az $a \in int \mathcal{D}_{f}$ pontban. Ekkor $f$ mindegyik koordinátafüggvényének mindegyik változó szerinti parciális deriváltja létezk és véges az a pontban. Az $f'(a)$ deriváltmátrix a parciális deriváltakkal így fejezhető ki:
+	
+	$$A = \begin{bmatrix} 
+	\partial_{1}f_{1}(a) & \partial_{2}f_{1}(a) & \dots & \partial_{n}f_{1}(a) \\
+	\partial_{1}f_{2}(a) & \partial_{2}f_{2}(a) & \dots & \partial_{n}f_{2}(a) \\
+	\vdots & \vdots &  \vdots &  \vdots  \\
+	\partial_{1}f_{m}(a) & \partial_{2}f_{m}(a) & \dots & \partial_{n}f_{m}(a) \\
+	\end{bmatrix}$$
+	
+	Az $f'(a)$ deriváltmátrixot az $f$ függvény $a \in int \mathcal{D}_{f}$ pontbeli Jacobi-mátrixának nevezzük.
+	
+	\begin{question}
+		Milyen kapcsolat van a pontbeli deriválhatóság és a folytonosság között?   
+	\end{question}
+	Legyen $f \in \R^n \to \R^m \quad (n,m \in \N)$ és $a \in \mathcal{D}_f$. Ekkor 
+	\begin{itemize}
+		\item $f \in D\{a\} \Rightarrow f \in C\{a\}$
+		\item $f \in C\{a\} \not\Rightarrow f \in D\{a\}$.
+	\end{itemize}
+	
+	\begin{question}
+		Fogalmazza meg a láncszabályt.   
+	\end{question}
+	Legyen $n,m,s \in \N$. Ha $g \in \R^{n} \to \R^{m}$ és $g \in D\{a\}$, továbbá $f  \in \R^{m} \to \R^{s}$ és $f \in D\{g(a)\}$, akkor $f\circ g \in D\{a\}$ és 
+	$$(f\circ g)'(a) = f'(g(a)) \cdot g'(a)\text{,}$$
+	ahol $\cdot$ a mátrixok közötti szorzás műveletét jelöli.
+	
+	\begin{question}
+		A deriválhatóság és a koordinátafüggvények deriválhatósága közötti kapcsolat.   
+	\end{question}
+	Legyen $n, m \in \N$, $f \in \R^n \to \R^m$, $a \in int \mathcal{D}_f$, $f = (f_1,\dots,f_m)$ koordinátafüggvény. Ekkor
+	$$f \in D\{a\} \Longleftrightarrow f_i \in D\{a\} \quad (i=1,\dots,m) \text{ és } f'(a)=(f'_1(a),\dots,f'_m(a))\text{.}$$
+	
+	\begin{question}
+		A totális- és a parciális derivált közötti kapcsolat. 
+	\end{question}
+	Legyen $n,m \in \N$, $f \in \R^n\to\R^m$, $a \in int\mathcal{D}_f$. Ekkor
+	$$f \in D\{a\} \begin{tabular}{l}$\Rightarrow$ \\ $\not\Leftarrow$ \end{tabular} \forall i = 1,2,\dots,n: \quad \exists \partial_i f(a): \quad f'(a)=(\partial_{1}f(a),\dots,\partial_{n}f(a))\text{.}$$
+	
+	\begin{question}
+		Milyen elégséges feltételt ismer a totális deriválhatóságra a parciális deriváltakkal?   
+	\end{question}
+	%Ha az $f \in \R^{n} \to \R^{m}$ függvény mindegyik koordinátafüggvényének mindegyik változó szerinti parciális deriváltja létezik és véges az $a \in \mathcal{D}_{f}$ pont egy környezetében és folytonos $a$-ban, akkor $f$ totálisan deriválható $a$-ban.%
+	
+	Legyen $n\in\N$, $f\in\R^n\to\R$, $a\in int\mathcal{D}_f$. Tegyük fel, hogy $\exists K(a)\subset \mathcal{D}_f: \exists \partial_{i}f(x), \forall x\in K(a)\quad (\forall i=1,\dots,n)$ és\\ $\partial_{i}f\in C\{a\} \quad (\forall i=1,\dots,n)$. Ekkor 
+	$$f\in D\{a\} \text{\quad{és}\quad } f'(a)=(\partial_{1}f(a), \partial_{2}f(a),\dots,\partial_{n}f(a)), \quad \partial_{i}f \in \R^n\to\R\text{.}$$
+	
+	\begin{question}
+		A totális- és az iránymenti derivált közötti kapcsolat.   
+	\end{question}
+	Legyen $n\in\N$, $f\in \R^n\to\R$, $a\in int\mathcal{D}_f$. Ekkor
+	$$f\in D\{a\} \begin{tabular}{l}$\Rightarrow$ \\ $\not\Leftarrow$ \end{tabular} \forall e\in\R^n \quad \exists \partial_{e}f(a)\text{.}$$
+	
+	\begin{question}
+		Fogalmazza meg a Lagrange-féle középértéktételt.   
+	\end{question}
+	Legyen $n\in\N$, $f\in\R^n\to\R$, $a\in int\mathcal{D}_f$, $f\in D\{K(a)\}$. Ekkor
+	$$\forall h\in\R^n: \quad a+h\in K(a), \quad \exists \nu \in (0,1): \quad f(a+h)-f(a)=f'(a+\nu h)-h\text{.}$$ 
+	
+	\newpage
+	
+	\begin{question}
+		Mit jelent az, hogy egy függvény kétszer deriválható egy pontban?   
+	\end{question}
+	Legyen $n\in\N$, $f\in\R^n\to\R$, $a\in int\mathcal{D}_f$. Ekkor $f$ kétszer deriválható (jelölés: $f\in D^2\{a\}$), ha
+	\begin{itemize}
+		\item $\exists K(a)\subset \mathcal{D}_f: f\in D\{K(a)\}$,
+		\item $\partial_{i}f \in D\{a\} \quad (\forall i = 1,\dots,n)$.
+	\end{itemize}
+	
+	\begin{question}
+		Definiálja a Hesse-féle mátrixot.   
+	\end{question}
+	Ha az $f \in \R^{n} \to \R$ függvény kétszer deriválható az $a \in int \mathcal{D}_{f}$ pontban (röviden $f \in D^{2}\{a\})$, akkor az
+	
+	$$f''(a) = \begin{bmatrix} 
+	\partial_{11}f(a) & \partial_{21}f(a) & \dots & \partial_{n1}f(a) \\
+	\partial_{12}f(a) & \partial_{22}f(a) & \dots & \partial_{n2}f(a) \\
+	\vdots & \vdots &  \vdots &  \vdots  \\
+	\partial_{1n}f(a) & \partial_{2n}f(a) & \dots & \partial_{nn}f(a) \\
+	\end{bmatrix} \in \R^{n \times n}$$
+	
+	szimmetrikus mátrixot (lásd Young tételét) az $f$ függvény $a \in int \mathcal{D}_{f}$ pontbeli \emph{Hesse-féle mátrixának} nevezzük.
+	
+	\begin{question}
+		Mit jelent az, hogy egy függvény $(s+1)$-szer deriválható egy pontban?   
+	\end{question}
+	Legyen $n \in \N$, $f \in \R^n \to \R$, $a \in int\mathcal{D}_f$. Ekkor az $f$ függvény $(s+1)$-szer deriválható $a$-ban, ha
+	\begin{itemize}
+		\item $\exists K(a)$, hogy $f \in D^{(s)}\{K(a)\}$,
+		\item Minden $s$-edrendű parciális derivált $\partial_{i_1}, \partial_{i_2}, \dots, \partial_{i_s} f \in D\{a\}$.
+	\end{itemize}
+	
+	\begin{question}
+		Fogalmazza meg a Young-tételt.  
+	\end{question}
+	Legyen $n \in \N$, $f \in \R^n \to \R$, $a \in int\mathcal{D}_{f}$, $f \in D^2\{a\}$. Ekkor
+	$$\partial_i\partial_j f(a) = \partial_j\partial_i f(a) \quad (i,j = 1,\dots,n)\text{.}$$
+	
+	\begin{question}
+		Adja meg a Taylor-polinom definícióját.   
+	\end{question}
+	Legyen $n, m \in \R$, $f \in \R^n \to \R$, $a \in int\mathcal{D}_f$ és $f\in D^m\{a\}$. Ekkor az $f$ $a$ ponthoz tartozó $m$-edfokú, $n$-változós Taylor polinomján a következőt értjük:
+	
+	$$T_{m,a}f(x) \stackrel{\hbox{\tiny$ x\!=\!a\!+h\!\in\!\R^n$}}{\hbox{=}} T_{m,a}f(a+h) = f(a) + \sum_{k=1}^{m} \left(\sum_{|i|=k}^{} \frac{\partial^i f(a)}{i!} \cdot h^i\right) \text{.}$$
+	
+	\begin{question}
+		Milyen képletet ismer az elsőfokú, $n$-változós Taylor-polinomra?   
+	\end{question}
+	Legyen $n \in \N$, $f \in \R^n\to\R$, $a\in int\mathcal{D}_f$, $f\in D\{a\}$, $h \in \R^n$. Ekkor
+	$$T_{1}f(a+h)=f(a)+\langle{f'(a),h}\rangle \text{.}$$
+	
+	\begin{question}
+		Milyen képletet ismer a másodfokú, $n$-változós Taylor-polinomra?   
+	\end{question}
+	Legyen $n \in \N$, $f \in \R^n\to\R$, $a\in int\mathcal{D}_f$, $f\in D^2\{a\}$, $h \in \R^n$. Ekkor
+	$$T_{2}f(a+h)=f(a)+\langle{f'(a),h}\rangle+\frac{1}{2}\langle{f''(a) \cdot h, h}\rangle \text{.}$$
+	
+	\begin{question}
+		Fogalmazza meg a Taylor-formulát a Lagrange-féle maradéktaggal.   
+	\end{question}
+	Legyen $n \in \N$, $f \in \R^n \to \R$, $a \in int\mathcal{D}_{f}$, $f \in D^{m+1}(K(a))$. Ekkor $\forall h \in \R^n, a+h \in K(a), \exists \mathcal{\nu} \in (0,1) :$
+	$$f(a+h) = \underbrace{f(a) + \sum_{k=1}^{m}\left(\sum_{|i|=k}\frac{\partial^i f(a)}{i!} \cdot h^i\right)}_{(T_{m,a} f)(a+h)} + \sum_{|i|=m+1}\frac{\partial^i f(a+\mathcal{\nu}h)}{i!}\cdot h^i\text{.}$$
+	
+	\newpage
+	
+	\begin{question}
+		Fogalmazza meg a Taylor-formulát a Peano-féle maradéktaggal.  
+	\end{question}
+	Legyen $n,m \in \N$, $f \in \R^{n} \to \R$ és $a \in int\mathcal{D}_{f}$. Tegyük fel, hogy $f \in D^{m}\{a\}$. Ekkor:
+	$$\exists \varepsilon : \R^n \to \R, \lim\limits_{h \to 0}\varepsilon(a+h) = 0 : f(a+h) = \underbrace{f(a)+\sum_{k=1}^{m}\left(\sum_{|i|=k}^{}\frac{\partial^i f(a)}{i!}\cdot h^i\right)}_{T_{m,a}f(a+h)} + \varepsilon(h) \cdot ||h||^m \quad (\forall h \in K(a))\text{.}$$
+	
+	\begin{question}
+		Fogalmazza meg a Taylor-formulát a Peano-féle maradéktaggal másodfokú Taylor-polinomokra. 
+	\end{question}
+	Legyen $n \in \N$, $f \in \R^{n} \to \R$ és $a \in int\mathcal{D}_{f}$. Tegyük fel, hogy $f \in D^{2}\{a\}$. Ekkor:
+	$$\exists \varepsilon : \R^n \to \R, \lim\limits_{h \to 0}\varepsilon(a+h) = 0 : f(a+h) = f(a) + \partial{f(a)} \cdot h + \frac{\partial^2 f(a)}{2} \cdot h^2 + \varepsilon(h) \cdot ||h||^2 \quad (\forall h \in K(a))\text{.}$$
+	
+	\begin{question}
+		Adja meg a kvadratikus alak definícióját.  
+	\end{question}
+	Legyen $A \in \R^{n \times n}$ szimmetrikus mátrix. Ekkor a kvadratikus alak alatt az alábbi függvényt értjük:
+	$$Q(h) = \langle{A \cdot h, h}\rangle = \sum_{i=1}^{n}\left(\sum_{j=1}^{n}a_{i,j}h_j\right)h_i \text{.}$$ 
+	
+	\begin{question}
+		Milyen szükséges és elégséges feltételt ismer arra vonatkozóan, hogy egy kvadratikus alak pozitív definit legyen? (Sylvester-kritérium)   
+	\end{question}
+	Legyen
+	$$A = \begin{bmatrix} 
+	a_{1,1}f(a) & \dots & a_{1,n} \\
+	\vdots &  & \vdots \\
+	a_{n,1}f(a) & \dots & a_{n,n} \\
+	\end{bmatrix} \in \R^{n \times n} \text{ szimmetrikus mátrix és } \Delta_i = det \begin{bmatrix} 
+	a_{1,1}f(a) & \dots & a_{1,i} \\
+	\vdots &  & \vdots \\
+	a_{i,1}f(a) & \dots & a_{i,i} \\
+	\end{bmatrix}\text{.}$$
+	
+	Ekkor $A$ kvadratikus alakja ($Q(h)=\langle{A\cdot h, h\rangle}$) pozitív definit $\Longleftrightarrow \Delta_i > 0 \quad (i = 1,\dots,n)$.
+	
+	\begin{question}
+		Milyen szükséges és elégséges feltételt ismer arra vonatkozóan, hogy egy kvadratikus alak nagatív definit legyen? (Sylvester-kritérium)   
+	\end{question}
+	Legyen
+	$$A = \begin{bmatrix} 
+	a_{1,1}f(a) & \dots & a_{1,n} \\
+	\vdots &  & \vdots \\
+	a_{n,1}f(a) & \dots & a_{n,n} \\
+	\end{bmatrix} \in \R^{n \times n} \text{ szimmetrikus mátrix és } \Delta_i = det \begin{bmatrix} 
+	a_{1,1}f(a) & \dots & a_{1,i} \\
+	\vdots &  & \vdots \\
+	a_{i,1}f(a) & \dots & a_{i,i} \\
+	\end{bmatrix}\text{.}$$
+	
+	 Ekkor $A$ kvadratikus alakja ($Q(h)=\langle{A\cdot h, h\rangle}$) negatív definit $\Longleftrightarrow \Delta_1 < 0, \Delta_2 > 0, \Delta_3 < 0, \dots$
+	
+	\begin{question}
+		Fogalmazza meg az $\RR^n \to \RR$ típusú függvény lokális szélsőértékeire vonatkozó elsőrendű szükséges feltételt.  
+	\end{question}
+	Legyen $f \in \R^n \to \R$, $a \in int \mathcal{D}_f$, $f \in D\{a\}$. Ha $f$-nek lokális szélsőértéke van $a$-ban, akkor $f'(a)=0$.
+	
+	\begin{question}
+		Fogalmazza meg az $\RR^n \to \RR$ típusú függvény lokális szélsőértékeire vonatkozó másodrendű elégséges feltételt.  
+	\end{question}
+	Legyen $f \in \R^n \to \R$, $a \in int \mathcal{D}_f$, $f \in D^2\{a\}$. Ha $f'(a) = 0$ és $f''(a)$ pozitív (negatív) definit, akkor $f$-nek létezik lokális minimuma (maximuma) $a$-ban.
+	
+	\begin{question}
+		Fogalmazza meg az $\RR^n \to \RR$ típusú függvény lokális szélsőértékeire vonatkozó másodrendű szükséges feltételt.  
+	\end{question}
+	Legyen $f \in \R^n \to \R$, $a \in int \mathcal{D}_f$, $f \in D^2\{a\}$. Ha $f$-nek lokális minimuma (maximuma) van $a$-ban, akkor $f'(a)=0$ és $f''(a)$ pozitív (negatív) szemidefinit.
+	
+	\newpage
+	
+	\begin{center}
+		{\LARGE\textbf{Felhasznált források}}
+	\end{center}
+	
+	A kidolgozáshoz az alábbi anyagok lettek felhasználva a mellettük hivatkozott forrásból:
+	\begin{itemize}
+		\item Dr. Weisz Ferenc kérdéssora \href{http://numanal.inf.elte.hu/~weisz/oktanyagok/An3_BC_elmeleti_kerdesek.pdf}{Link}
+		\item Dr. Weisz Ferenc keddi előadásai
+		\item Umann Kristóf \LaTeX\ dokumentumai kiindulási alapnak \href{https://github.com/Szelethus/ELTE-IK-Analizis/}{Link}
+		\item Dr. Szili László oktatási anyagai (a kidolgozás jelentős része ezekből az anyagokból származik) \href{http://numanal.inf.elte.hu/~szili/Oktatas/}{Link}
+		\item Dr. Szili László - Többváltozós analízis \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_2017/Tobbvalt-an_An3_B_C_2013.pdf}{Link}
+		\item Szánthó József kidolgozása \href{http://people.inf.elte.hu/hocqaai/Analizis_2009.pdf}{Link}
+		\item Lanka Máté kidolgozása \href{http://matthewld.web.elte.hu/201720182/anal3other/elmelet_kisZH.pdf}{Link}
+		\item Kuti Bence, Magyarkúti Barna kidolgozásai \href{http://bmagyarkuti.web.elte.hu/wp-content/uploads/2016/12/anal3_beugrok.pdf}{Link}
+		\item Balogh Tamás kidolgozása \href{http://www.baloghtamas.hu/download/anal3.pdf}{Link}
+		\item Borbély Bálint jegyzetei	
+	\end{itemize}
+	
+	\vspace{2em}
+	\begin{center}
+		{\LARGE\textbf{Köszönetnyilvánítás}}
+	\end{center}
+
+	A fenti források készítőin túl köszönet illeti a következő személyeket is az általuk nyújtott segítségért, közreműködésért, tanácsadásért, elírások, hibák jelentéséért:\\
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item Zatureczki Marcell
+			\item Tűri Erik
+			\item Mosi Zoltán
+			\item Tóth Bálint
+			\item Hegedüs Norbert
+			\item Kuti Bence
+			\item Ménes Márk
+			\item Emese András
+			\item Kovács Kristóf
+		\end{itemize}
+	\end{multicols}
+
+	\vspace{2em}
+	\begin{center}
+		{\LARGE\textbf{Közreműködés, forráskód}}
+	\end{center}
+
+	A \LaTeX\ forráskód elérhető a következő linken:\\ \url{https://github.com/totadavid95/Analizis3/blob/master/Anal3_def.tex} 
+	
+	Szívesen várom, várjuk a közreműködéseket! :)
+\end{document}

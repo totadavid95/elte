@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+\usepackage[textwidth=170mm, textheight=230mm, margin=20mm, bottom=25mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm, amssymb, hyperref}
+\usepackage[hu]{datetime}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{multicol}
+\usepackage{relsize}
+\usepackage{framed}
+
+\DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+\makeatletter
+\DeclareMathSymbol{\m@thbbch@rC}{\mathord}{lettersA}{131}
+\DeclareMathSymbol{\m@thbbch@rN}{\mathord}{lettersA}{142}
+\DeclareMathSymbol{\m@thbbch@rQ}{\mathord}{lettersA}{145}
+\DeclareMathSymbol{\m@thbbch@rR}{\mathord}{lettersA}{146}
+\DeclareMathSymbol{\m@thbbch@rZ}{\mathord}{lettersA}{154}
+\makeatother
+\ExplSyntaxOn
+\NewDocumentCommand{\varmathbb}{m}
+{
+	\tl_map_inline:nn { #1 } { \use:c { m@thbbch@r##1 } }
+}
+\ExplSyntaxOff
+
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{colorlinks = true}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+\def\ZZ{\varmathbb{Z}}
+\def\QQ{\varmathbb{Q}}
+\def\RR{\varmathbb{R}}
+\def\CC{\varmathbb{C}}
+\def\NN{\varmathbb{N}}
+
+\newtheoremstyle{qstyle}{1.5em}{-1em}{\bfseries\boldmath}{}{\unboldmath\bfseries}{.}{ }{}
+\theoremstyle{qstyle}
+\newtheorem{question}{}{}
+\setlist[itemize]{topsep=0pt}
+
+\begin{document}
+	\begin{center}
+		{\Large\textbf{Analízis 3. (B és C szakirány)}}\\
+		{\Large Szükséges ismeretek az 5. gyakorlathoz}
+	\end{center}
+	
+	\begin{framed}
+		\textbf{Jelen dokumentum ekkor lett frissítve: {\yyyymmdddate\today} \ \currenttime}\\
+		További kidolgozások elérhetőek \href{https://people.inf.elte.hu/totadavid95/Analizis3/2019-tavasz/}{ide kattintva}. A gyakorlatok anyaga \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{ide kattintva} érhető el.\\	
+		Forrás(ok): \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_ea_def_tetel_2019_tavasz.pdf}{Dr. Szili László - Definíciók és tételek az előadásokon}
+	\end{framed}
+
+	\begin{question}
+		Definiálja a metrikus teret.  
+	\end{question}
+	Az $(M,\varrho)$ rendezett pár metrikus tér, ha $M\ne \emptyset$ halmaz, és
+	$$\varrho: M \times M \to \R$$
+	olyan függvény, melyre $\forall x,y,z\in M$ esetén
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item $\varrho(x,y)\ge 0$,
+		\item $\varrho(x,y) = 0 \Longleftrightarrow x = y$,
+		\item $\varrho(x,y) = \varrho(y,x)$ (szimmetria),
+		\item $\varrho(x,y) \le \varrho(x,z) + \varrho(z,y)$ (háromszög-egyenlőtlenség).
+	\end{enumerate}
+	\vspace{-4mm}
+	A $\varrho(x,y)$ az $x,y$ pontok távolsága, a $\varrho$ pedig a távolságfüggvény (vagy metrika).
+	
+	\begin{question}
+		Hogyan értelmezzük $\R^n$-ben a $\varrho_2$ euklideszi metrikát?
+	\end{question}
+	Ha $1\le n \in \N$ és $x (x_1,\dots,x_n)$,$y=(y_1,\dots,y_n)\in \R^n$, akkor
+	$$\varrho_2(x,y) := \sqrt{\sum_{k=1}^{n}|x_k -y_k|^2} \text{.}$$
+
+
+	\begin{question}
+		Írja le a normált tér definícióját.
+	\end{question}
+	Az $(X,||.||)$ rendezett pár normált tér, ha
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item $X \ne \emptyset$ lineáris tér (v. vektortér) az $\R$ számtest felett;
+		\item $||.|| : X\to  \R$ olyan függvény, amelyre $\forall x,y \in X$ és $\forall \lambda \in \R$ esetén
+		\begin{itemize}
+			\item $||x||\ge 0$,
+			\item $||x|| = 0 \Leftrightarrow x = \boldsymbol{0} \quad$ ($\boldsymbol{0}$ az $X$ lin. tér nulleleme)
+			\item $||\lambda x|| = |\lambda | \cdot ||x||$,
+			\item $||x+y|| \le ||x||+||y||$ (háromszög-egyenlőtlenség)
+		\end{itemize}
+	\end{enumerate}
+	\vspace{-4mm}
+	A $||.||$ leképezést normának, az $||x||$ számot pedig az $x$ elem normájának mondjuk.
+	
+	\begin{question}
+		Definiálja $\R^n$-en a $||.||_p$ normákat.
+	\end{question}
+	Ha $1\le n\in\N, 1\le p\le +\infty$ és $x = (x_1,\dots,x_n) \in \R^n$, akkor
+	
+	$$
+	||x||_p := 
+	\left\{\begin{array}{rl}
+	\left(\mathlarger{\sum_{k=1}^{n}|x_k|^p} \right)^{\frac{1}{p}} & \text{ ha } 1\le p < +\infty \\
+	&\\
+	\max\limits_{1 \le k\le n} |x_k| & \text{ ha } p = +\infty\text{.} 
+	\end{array}\right.
+	$$
+	
+	\begin{question}
+		Definiálja normált térben a konvergens sorozat fogalmát.
+	\end{question}
+	Az $(X,||.||)$ normált tér egy $(a_n):\N\to X$ sorozata konvergens, ha
+	$$\exists \alpha\in X \text{, hogy }\quad \forall \varepsilon > 0 \text{ számhoz } \quad \exists n_0 \in \N \text{, hogy } \quad \forall n\ge n_0 \text{ indexre } ||a_n-\alpha|| < \varepsilon \text{.}$$
+	
+	Ekkor $\alpha$ az $(a_n)$ határértéke.
+	
+	
+	\begin{question}
+		Mit jelent az, hogy két norma ekvivalens?
+	\end{question}
+	Az $X$ lineáris téren adott $||.||^{(1)}$ és $||.||^{(2)}$ normák ekvivalensek, ha léteznek olyan $m,M$ pozitív valós számok, hogy
+	$$m\cdot ||x||^{(1)}\le ||x||^{(2)}\le M\cdot ||x||^{(1)}\quad\quad (x\in X)\text{.}$$
+	Jelölés: $||.||^{(1)} \sim ||.||^{(2)}$.
+
+	\begin{question}
+		Milyen állítást ismer ekvivalens normák esetén sorozatok konvergenciájára?
+	\end{question}
+	Tegyük fel, hogy az $X$ lineáris téren értelmezett $||.||^{(1)}$ és $||.||^{(2)}$ normák ekvivalensek. Ekkor tetszőleges $(a_n):\N\to X$ sorozatra
+	$$\lim(a_n) \overset{\hbox{$||.||^{(1)}$}}{=} \alpha \Longleftrightarrow \lim(a_n) \stackrel{\hbox{$||.||^{(2)}$}}{\hbox{=}} \alpha \text{.} $$
+
+\end{document}

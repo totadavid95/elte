@@ -1,0 +1,146 @@
+\documentclass[a4paper]{article}
+\usepackage[textwidth=170mm, textheight=230mm, margin=20mm, bottom=25mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm, amssymb, hyperref}
+\usepackage[hu]{datetime}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{multicol}
+\usepackage{relsize}
+\usepackage{framed}
+
+\usepackage{mathtools}
+\usepackage{commath}
+%\usepackage[sc,osf]{mathpazo}
+
+\DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+\makeatletter
+\DeclareMathSymbol{\m@thbbch@rC}{\mathord}{lettersA}{131}
+\DeclareMathSymbol{\m@thbbch@rN}{\mathord}{lettersA}{142}
+\DeclareMathSymbol{\m@thbbch@rQ}{\mathord}{lettersA}{145}
+\DeclareMathSymbol{\m@thbbch@rR}{\mathord}{lettersA}{146}
+\DeclareMathSymbol{\m@thbbch@rZ}{\mathord}{lettersA}{154}
+\makeatother
+\ExplSyntaxOn
+\NewDocumentCommand{\varmathbb}{m}
+{
+	\tl_map_inline:nn { #1 } { \use:c { m@thbbch@r##1 } }
+}
+\ExplSyntaxOff
+
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{colorlinks = true}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+\def\ZZ{\varmathbb{Z}}
+\def\QQ{\varmathbb{Q}}
+\def\RR{\varmathbb{R}}
+\def\CC{\varmathbb{C}}
+\def\NN{\varmathbb{N}}
+
+\newtheoremstyle{qstyle}{1.5em}{-1em}{\bfseries\boldmath}{}{\unboldmath\bfseries}{.}{ }{}
+\theoremstyle{qstyle}
+\newtheorem{question}{}{}
+\setlist[itemize]{topsep=0pt}
+
+% normák
+\let\oldnorm\norm   % <-- Store original \norm as \oldnorm
+\let\norm\undefined % <-- "Undefine" \norm
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\begin{document}
+	\begin{center}
+		{\Large\textbf{Analízis 3. (B és C szakirány)}}\\
+		{\Large Szükséges ismeretek a 8. gyakorlathoz}
+	\end{center}
+	
+	\begin{framed}
+		\textbf{Jelen dokumentum ekkor lett frissítve: {\yyyymmdddate\today} \ \currenttime}\\
+		További kidolgozások elérhetőek \href{https://people.inf.elte.hu/totadavid95/Analizis3/2019-tavasz/}{ide kattintva}. A gyakorlatok anyaga \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{ide kattintva} érhető el.\\	
+		Forrás(ok): \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_ea_def_tetel_2019_tavasz.pdf}{Dr. Szili László - Definíciók és tételek az előadásokon}
+	\end{framed}
+
+	\begin{question}
+		Definiálja $\R^n \to \R$ típusú függvény parciális deriváltját.
+	\end{question}
+	Legyen $2\le n \in \N$, $e_1,\dots,e_n$ a kanonikus bázis $R^n$-ben, $f \in \R^n \to \R$ és $a \in int \mathcal{D}_f$. Az $f$ függvénynek az $a$ pontban létezik az $i$-edik $(i=1,2,\dots,n)$ változó szerinti parciális deriváltja, ha az
+	$$F : K(0) \ni t \mapsto f(a+te_i)$$
+	valós-valós függvény deriválható a 0 pontban. Az $F'(0)$ valós számot az $f$ függvény $a$ pontbeli, $i$-edik változó szerinti parciális deriváltjának nevezzük és a $\partial_i f(a)$ szimbólummal jelöljük.
+	
+	\begin{question}
+		Mi az iránymenti derivált fogalma?
+	\end{question}
+	Legyen $2\le n \in\N$, $f\in \R^n\to \R$ és $a \in int\mathcal{D}_f$. Tegyük fel, hogy $e \in \R^n$ egy egységvektor: $\norm{e}_2 = 1$. Az $f$ függvénynek az $a$ pontban létezik az $e$ irány mentén vett iránymenti deriváltja, ha az
+	$$F : K(0) \ni t \mapsto f(a+te)$$
+	valós-valós függvény deriválható a $0$ pontban. Az $F'(0)$ valós számot az $f$ függvény $a$ pontbeli $e$ irányú iránymenti deriváltjának nevezzük, és a $\partial_e f(a)$ szimbólummal jelöljük.
+
+	\begin{question}
+		Milyen állítást ismer lineáris leképezések mátrixreprezentációjával kapcsolatban?
+	\end{question}
+	Legyen $n,m \in \N^+$. Tetszőleges $L \in \mathcal{L}(\R^n,\R^m)$ lineáris leképezéshez egyértelműen létezik olyan $a\in \R^m \times \R^n$ mátrix, amellyel az
+	$$L(x) = A \cdot x \quad (x\in \R^n)$$
+	egyenlőség teljesül.
+
+	\begin{question}
+		Írja le az $f \in \R^n \to \R^m$ függvény totális deriválhatóságának a definícióját.
+	\end{question}
+	Az $f \in \R^n \to \R^m \quad (n,m \in \N^+)$ függvény (totálisan) deriválható az $a\in int\mathcal{D}_f$ pontban, ha
+	$$\exists L \in \mathcal{L}(\R^n,\R^m) \text{ lineáris leképezés és } \exists \varepsilon \in \R^n\to\R^m, \lim\limits_{h\to 0} \varepsilon(h) = 0 \text{ függvény, hogy }$$
+	$$f(a+h)-f(a) = L(h)+\varepsilon(h) \cdot \norm{h}$$
+	teljesül minden olyan $h\in \R^n$ vektorra, amelyre $a+h \in \mathcal{D}_f$, ahol $\norm{ . }$ tetszőleges norma az $\R^n$ lineáris téren. Ekkor $f'(a) := L$ az $f$ függvény $a$-beli deriváltja.
+	
+	\begin{question}
+		Milyen ekvivalens átfogalmazást ismer mátrixokkal a pontbeli deriválhatóságra?
+	\end{question}
+	Legyen $f \in \R^n\to\R^m \quad (n,m \in \N^+)$ és $a\in int\mathcal{D}_f$. Ekkor
+	$$f\in D\{a\} \quad \Longleftrightarrow \quad \exists A \in \R^{m \times n} : \lim\limits_{h\to 0} 
+	\frac{\norm{f(a+h)-f(a)-A\cdot h}^{(1)}}{\norm{h}^{(2)}} =0 \text{,}$$
+	ahol $\norm{.}^{(1)}$ tetszőleges $\R^m$-beli és $\norm{.}^{(2)}$ tetszőleges $\R^n$-beli norma. Ekkor $f'(a) := A$ az $f$ függvény $a$ pontbeli deriváltja vagy deriváltmátrixa.
+
+	\newpage
+	
+	\begin{question}
+		Milyen tételt ismer a deriváltmátrix előállítására?
+	\end{question}
+	Legyen $f = (f_{1}, f_{2},\dots,f_{m}) \in \R^{n} \to \R^{m}$, ahol $f_i \in \R^n\to R$ az $f$ függvény $i$-edik $(i=1,2,\dots,m)$ koordinátafüggvénye. Tegyük fel, hogy $f$ totálisan deriválható az $a\in int\mathcal{D}_f$ pontban. Ekkor $f$ mindegyik koordinátafüggvényének mindegyik változó szerinti parciális deriváltja létezik az $a$ pontban. Az $f'(a)$ deriváltmátrix a parciális deriváltakkal így fejezhető ki:
+	
+	$$f'(a) = \begin{bmatrix} 
+	\partial_{1}f_{1}(a) & \partial_{2}f_{1}(a) & \dots & \partial_{n}f_{1}(a) \\
+	\partial_{1}f_{2}(a) & \partial_{2}f_{2}(a) & \dots & \partial_{n}f_{2}(a) \\
+	\vdots & \vdots &  \vdots &  \vdots  \\
+	\partial_{1}f_{m}(a) & \partial_{2}f_{m}(a) & \dots & \partial_{n}f_{m}(a) \\
+	\end{bmatrix}\text{.}$$
+	
+	Az $f'(a)$ deriváltmátrixot az $f$ függvény $a \in int \mathcal{D}_{f}$ pontbeli Jacobi-mátrixának nevezzük.
+	
+	\begin{question}
+		Fogalmazza meg az összetett függvény pontbeli deriválhatóságára vonatkozó állítást, az ún. általános láncszabályt.
+	\end{question}
+	Legyen $n,m,s \in \N^+$. Ha $g\in \R^n \to \R^m$ és $g\in D\{a\}$, továbbá $f \in \R^m \to \R^s$ és $f \in D\{g(a)\}$, akkor $(f \circ g) \in D\{a\}$ és
+	$$(f \circ g)'(a) = f'(g(a)) \cdot g'(a) \text{,}$$
+	ahol $\cdot$ a mátrixok közötti szorzás műveletét jelenti.
+	
+	\begin{question}
+		Milyen elégséges feltételt ismer a totális deriválhatóságra a parciális deriváltakkal?
+	\end{question}
+	Legyen $f \in \R^n \to \R \quad (n \in \N^+)$ és $a \in int \mathcal{D}_f$. Tegyük fel, hogy az $a$ pontnak létezik olyan $K(a) \subset \mathcal{D}_f$ környezete, amelyre minden $i = 1,\dots,n$ index esetén a következők teljesülnek:
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item $\exists \partial_i f(x)$ minden $x \in K(a)$ pontban,
+		\item a $\partial_i f: K(a)\to \R$ parciális deriváltfüggvény folytonos az $a$ pontban.
+	\end{enumerate}
+	\vspace{-4mm}
+	Ekkor az $f$ függvény totálisan deriválható az $a$ pontban.
+
+\end{document}

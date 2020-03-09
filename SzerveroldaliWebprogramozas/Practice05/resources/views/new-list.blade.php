@@ -11,7 +11,7 @@
     @if (session()->has('result'))
         @if (session()->get('result') == true)
             <div class="alert alert-success" role="alert">
-                aaaA(z) <strong>{{ session()->get('list')->name }}</strong> nevű lista sikeresen hozzá lett adva!
+                A(z) <strong>{{ session()->get('list')->name }}</strong> nevű lista sikeresen hozzá lett adva!
             </div>
         @endif
     @endif

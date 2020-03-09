@@ -1,0 +1,103 @@
+\documentclass[a4paper]{article}
+\usepackage[textwidth=170mm, textheight=230mm, margin=20mm, bottom=25mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm, amssymb, hyperref}
+\usepackage[hu]{datetime}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{multicol}
+\usepackage{framed}
+
+\DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+\makeatletter
+\DeclareMathSymbol{\m@thbbch@rC}{\mathord}{lettersA}{131}
+\DeclareMathSymbol{\m@thbbch@rN}{\mathord}{lettersA}{142}
+\DeclareMathSymbol{\m@thbbch@rQ}{\mathord}{lettersA}{145}
+\DeclareMathSymbol{\m@thbbch@rR}{\mathord}{lettersA}{146}
+\DeclareMathSymbol{\m@thbbch@rZ}{\mathord}{lettersA}{154}
+\makeatother
+\ExplSyntaxOn
+\NewDocumentCommand{\varmathbb}{m}
+{
+	\tl_map_inline:nn { #1 } { \use:c { m@thbbch@r##1 } }
+}
+\ExplSyntaxOff
+
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{colorlinks = true}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+\def\ZZ{\varmathbb{Z}}
+\def\QQ{\varmathbb{Q}}
+\def\RR{\varmathbb{R}}
+\def\CC{\varmathbb{C}}
+\def\NN{\varmathbb{N}}
+
+\newtheoremstyle{qstyle}{1.5em}{-1em}{\bfseries\boldmath}{}{\unboldmath\bfseries}{.}{ }{}
+\theoremstyle{qstyle}
+\newtheorem{question}{}{}
+\setlist[itemize]{topsep=0pt}
+
+\begin{document}
+	\begin{center}
+		{\Large\textbf{Analízis 3. (B és C szakirány)}}\\
+		{\Large Szükséges ismeretek a 2. gyakorlathoz}
+	\end{center}
+	
+	\begin{framed}
+		\textbf{Jelen dokumentum ekkor lett frissítve: {\yyyymmdddate\today} \ \currenttime}\\
+		További kidolgozások elérhetőek \href{https://people.inf.elte.hu/totadavid95/Analizis3/2019-tavasz/}{ide kattintva}. A gyakorlatok anyaga \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{ide kattintva} érhető el.\\	
+		Forrás(ok): \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{Dr. Szili László - Analízis 3. gyakorlatok}, \href{https://people.inf.elte.hu/totadavid95/Analizis3/Anal3_def.pdf}{2018 őszi kidolgozás}
+	\end{framed}
+	
+	\begin{question}
+		Definiálja a primitív függvényt.
+	\end{question}
+	Legyen $I \subset \R$ egy nyílt intervallum. Az $F:I\to\R$ függvény az $f:I\to\R$ egy primitív függvénye, ha $F\in D(I)$ és $F'(x)=f(x)  \quad  (x\in I)$.
+	
+	\begin{question}
+		Milyen \emph{szükséges} feltételt ismer primitív függvény létezésére?
+	\end{question}
+	Ha $I \subset \R$ nyílt intervallum és az $f:I\to\R$ függvénynek van primitív függvénye, akkor $f$ Darboux-tulajdonságú az $I$ intervallumon.
+	
+		\begin{question}
+		Mit mond ki a primitív függvényekkel kapcsolatos \emph{parciális integrálás tétele}?
+	\end{question}
+	Legyen $I\subset\R$ nyílt intervallum. Tegyük fel, hogy $f,g\in D(I)$ és $f'g$-nek létezik primitív függvénye. Ekkor $fg'$-nek is van primitív függvénye és
+	$$\int fg' = fg-\int f'g \text{.} $$
+	
+	\begin{question}
+		Hogyan szól a primitív függvényekkel kapcsolatos \emph{első helyettesítési szabály}?
+	\end{question}
+	Legyen $I,J \subset \R$ nyílt intervallum, $g \in D(I)$, $\mathcal{R}_g \subset J$ és $t_0 \in I$. Ha az $f : J \to \R$ függvénynek van primitív függvénye, akkor $(f \circ g) \cdot g'$-nek is van primitív függvénye és
+	$$ \int\limits_{t_0}(f \circ g) \cdot g' = \left(\; \int\limits_{g(t_0)} f \right) \circ g \text{.} $$
+	
+	\begin{question}
+		Mi a \emph{Darboux-féle alsó integrál} definíciója?
+	\end{question}
+	Legyen $a,b \in \R$, $a<b$, $f:[a,b] \to \R$ korlátos függvény és valamely $\tau \subset [a,b]$ felosztás esetén $s(f,\tau)$ az $f$ függvény $\tau$-hoz tartozó alsó közelítő összege. Jelölje $\mathcal{F}([a,b])$ az $[a,b]$ felosztásainak a halmazát. Ekkor az $\{s(f,\tau) \mid \tau\in \mathcal{F}([a,b])\}$ halmaz felülről korlátos, ezért létezik szuprémuma. Az
+	$$I_*(f) := \sup \{s(f,\tau) \mid \tau \in \mathcal{F}([a,b])\} $$
+	számot az $f$ függvény \emph{Darboux-féle alsó integráljának} nevezzük.
+	
+	\begin{question}
+		Mikor nevezünk egy függvényt (Riemann)-integrálhatónak?
+	\end{question}
+	Legyen $a,b \in \R$, $a < b$ és $f : [a,b] \to \R$ egy korlátos függvény, $I_*(f)$, ill. $I^*(f)$ az $f$ függvény Darboux-féle alsó, ill. felső integrálja. Ekkor $f$ \emph{Riemann-integrálható} az $[a,b]$ intervallumon (jelekkel: $f \in R[a,b]$), ha $I_*(f) = I^*(f)$.
+	
+	\begin{question}
+		Hogyan szól a \emph{Newton-Leibniz-tétel}? 
+	\end{question}
+	Ha $f \in R[a,b]$ és $f$-nek létezik primitív függvénye $[a,b]$-n, akkor $\int_{a}^{b} f = F(b) - F(a)$, ahol $F$ a $f$ függvény egy primitív függvénye.
+	
+\end{document}

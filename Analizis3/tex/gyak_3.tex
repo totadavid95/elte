@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+\usepackage[textwidth=170mm, textheight=230mm, margin=20mm, bottom=25mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm, amssymb, hyperref}
+\usepackage[hu]{datetime}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{multicol}
+\usepackage{framed}
+
+\DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+\makeatletter
+\DeclareMathSymbol{\m@thbbch@rC}{\mathord}{lettersA}{131}
+\DeclareMathSymbol{\m@thbbch@rN}{\mathord}{lettersA}{142}
+\DeclareMathSymbol{\m@thbbch@rQ}{\mathord}{lettersA}{145}
+\DeclareMathSymbol{\m@thbbch@rR}{\mathord}{lettersA}{146}
+\DeclareMathSymbol{\m@thbbch@rZ}{\mathord}{lettersA}{154}
+\makeatother
+\ExplSyntaxOn
+\NewDocumentCommand{\varmathbb}{m}
+{
+	\tl_map_inline:nn { #1 } { \use:c { m@thbbch@r##1 } }
+}
+\ExplSyntaxOff
+
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{colorlinks = true}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+\def\ZZ{\varmathbb{Z}}
+\def\QQ{\varmathbb{Q}}
+\def\RR{\varmathbb{R}}
+\def\CC{\varmathbb{C}}
+\def\NN{\varmathbb{N}}
+
+\newtheoremstyle{qstyle}{1.5em}{-1em}{\bfseries\boldmath}{}{\unboldmath\bfseries}{.}{ }{}
+\theoremstyle{qstyle}
+\newtheorem{question}{}{}
+\setlist[itemize]{topsep=0pt}
+
+\begin{document}
+	\begin{center}
+		{\Large\textbf{Analízis 3. (B és C szakirány)}}\\
+		{\Large Szükséges ismeretek a 3. gyakorlathoz}
+	\end{center}
+
+	\begin{framed}
+		\textbf{Jelen dokumentum ekkor lett frissítve: {\yyyymmdddate\today} \ \currenttime}\\
+		További kidolgozások elérhetőek \href{https://people.inf.elte.hu/totadavid95/Analizis3/2019-tavasz/}{ide kattintva}. A gyakorlatok anyaga \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{ide kattintva} érhető el.\\	
+		Forrás(ok): \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{Dr. Szili László - Analízis 3. gyakorlatok}, \href{https://people.inf.elte.hu/totadavid95/Analizis3/Anal3_def.pdf}{2018 őszi kidolgozás}
+	\end{framed}
+
+	\begin{question}
+		Milyen \emph{elégséges} feltételt ismer primitív függvény létezésére?
+	\end{question}
+	Ha $I\subset\R$ nyílt intervallum és $f:I\to\R$ folytonos függvény, akkor $f$-nek létezik primitív függvénye.
+	
+	\begin{question}
+		Adjon meg olyan függvényt, amelynek \emph{nincs} primitív függvénye.
+	\end{question}
+	$f(x)=\mathrm{sign}(x)$   \quad  $(x \in \left(-1,1)\right)$
+	
+	\begin{question}
+		Milyen állítást ismer a primitív függvények számával kapcsolatban?
+	\end{question}
+	Tegyük fel, hogy $I \subset \R$ nyílt intervallum és $f : I \to \R$ adott függvény. Ekkor
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item Ha $F : I \to \R$ a $f$ függvény egy primitív függvénye, akkor minden $c\in\R$ esetén az $F + c$ függvény is primitív függvénye $f$-nek.
+		\item Ha $F_1,F_2 : I \to \R$ primitív függvényei a $f$ függvénynek, akkor
+		$$\exists c\in\R : F_1(x)=F_2(x)+c \quad (x \in I)\text{,}$$
+		azaz a primitív függvények konstansban különböznek egymástól.
+	\end{enumerate}
+	\vspace{-4mm}
+	
+	\begin{question}
+		Mit ért a határozatlan integrál linearitásán?
+	\end{question}
+	Legyen $I\subset\R$ egy nyílt intervallum. Ha az $f,g : I\to\R$ függvényeknek létezik primitív függvénye, akkor tetszőleges $\alpha,\beta\in\R$ mellett $(\alpha f+\beta g)$-nek is létezik primitív függvénye és
+	$$\int (\alpha f+\beta g) = \alpha \int f + \beta \int g \text{.}$$
+	
+	\begin{question}
+		Fogalmazza meg a primitív függvényekkel kapcsolatos \emph{második helyettesítési szabályt}.
+	\end{question}
+	Legyen $I,J \subset \R$ nyílt intervallum; $g : I \to J$ bijekció, $g \in D(I)$, $g'(x) \neq 0 (x \in I)$; $f : J \to \R$ és $x_0 \in J$. Ha az $(f \circ g) \cdot g' : I \to \R$ függvénynek van primitív függvénye, akkor $f$-nek is van primitív függvénye és
+	$$\int\limits_{x_0} f = \left(\; \int\limits_{g^{-1}(x_0)} (f \circ g) \cdot g' \right) \circ g^{-1} \text{.} $$
+	
+	\begin{question}
+		Milyen ekvivalens átfogalmazást ismer a Riemann-integrálhatóságra a
+		Riemann-féle közelítő összegekkel?
+
+	\end{question}
+	Legyen $a,b \in \R$, $a<b$. Ekkor $f\in R[a,b]$ és $\int_{a}^{b} f = I \Longleftrightarrow \forall \varepsilon > 0$ számhoz $\exists \delta > 0: \forall \tau \in \mathcal{F}[a,b], ||\tau || := \max\limits_{k = 0,\dots,n-1} (x_{k+1} - x_k) < \delta$ esetén az
+	$$|\sigma (f,\tau,\xi)-I| < \varepsilon$$
+	egyenlőtlenség teljesül a $\xi$ közbülső helyek tetszőleges megválasztása mellett.
+
+	\begin{question}
+		Írja le az integrálfüggvénnyel kapcsolatban tanult tételt.
+	\end{question}
+	Legyen $f\in R[a,b],x_0\in [a,b], F(x) := \int_{x_0}^{x} f(t) dt \quad (x \in [a,b])$. Ekkor
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item a $F$ integrálfüggvény folytonos $[a,b]$-n;
+		\item ha $d\in (a,b)$ és $f$ folytonos $d$-ben, akkor $F$ differenciálható $d$-ben és $F'(d)=f(d)$.
+	\end{enumerate}
+	\vspace{-4mm}
+	
+\end{document}

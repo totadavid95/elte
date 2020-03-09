@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+\usepackage[textwidth=170mm, textheight=230mm, margin=20mm, bottom=25mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm, amssymb, hyperref}
+\usepackage[hu]{datetime}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{multicol}
+\usepackage{framed}
+
+\DeclareSymbolFont{lettersA}{U}{txmia}{m}{it}
+\makeatletter
+\DeclareMathSymbol{\m@thbbch@rC}{\mathord}{lettersA}{131}
+\DeclareMathSymbol{\m@thbbch@rN}{\mathord}{lettersA}{142}
+\DeclareMathSymbol{\m@thbbch@rQ}{\mathord}{lettersA}{145}
+\DeclareMathSymbol{\m@thbbch@rR}{\mathord}{lettersA}{146}
+\DeclareMathSymbol{\m@thbbch@rZ}{\mathord}{lettersA}{154}
+\makeatother
+\ExplSyntaxOn
+\NewDocumentCommand{\varmathbb}{m}
+{
+	\tl_map_inline:nn { #1 } { \use:c { m@thbbch@r##1 } }
+}
+\ExplSyntaxOff
+
+\input{glyphtounicode}
+\pdfgentounicode=1
+\hypersetup{colorlinks = true}
+\setlength\parindent{0pt}
+\setlength{\parskip}{1em}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+
+\def\ZZ{\varmathbb{Z}}
+\def\QQ{\varmathbb{Q}}
+\def\RR{\varmathbb{R}}
+\def\CC{\varmathbb{C}}
+\def\NN{\varmathbb{N}}
+
+\newtheoremstyle{qstyle}{1.5em}{-1em}{\bfseries\boldmath}{}{\unboldmath\bfseries}{.}{ }{}
+\theoremstyle{qstyle}
+\newtheorem{question}{}{}
+\setlist[itemize]{topsep=0pt}
+
+\begin{document}
+	\begin{center}
+		{\Large\textbf{Analízis 3. (B és C szakirány)}}\\
+		{\Large Szükséges ismeretek a 6. gyakorlathoz}
+	\end{center}
+	
+	\begin{framed}
+		\textbf{Jelen dokumentum ekkor lett frissítve: {\yyyymmdddate\today} \ \currenttime}\\
+		További kidolgozások elérhetőek \href{https://people.inf.elte.hu/totadavid95/Analizis3/2019-tavasz/}{ide kattintva}. A gyakorlatok anyaga \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_gyak_2019_tavasz.pdf}{ide kattintva} érhető el.\\	
+		Forrás(ok): \href{http://numanal.inf.elte.hu/~szili/Oktatas/An3_BC_szakirany_2019/An3_BC_ea_def_tetel_2019_tavasz.pdf}{Dr. Szili László - Definíciók és tételek az előadásokon}
+	\end{framed}
+	
+	\begin{question}
+		Definiálja a normált terek közötti leképezések pontbeli folytonosságát.
+	\end{question}
+	Legyen $(X,||.||_X)$ és $(Y,||.||_Y)$ normált tér. Az $f\in X\to Y$ függvény folytonos az $a\in \mathcal{D}_f$ pontban (jelölés: $f\in C\{a\}$), ha
+	$$\forall \varepsilon > 0 \text{ számhoz } \exists \delta > 0, \quad \forall x \in K_{\delta}^{||.||_X}(a) \cap \mathcal{D}_f \text{ esetén } f(x)\in K_{\varepsilon}^{||.||_Y}(f(a)) \text{,}$$
+	azaz, ha
+	$$\forall \varepsilon > 0 \text{ számhoz } \exists \delta > 0, \quad \forall x \in \mathcal{D}_f, \quad ||x-a||_X < \delta \text{ esetén } ||f(x)-f(a)||_Y < \varepsilon \text{.}$$
+
+
+	\begin{question}
+		Mit jelent egy $\R^2\to\R^1$ függvény pontbeli folytonossága?
+	\end{question}
+	Az $f\in\R^2\to\R$ függvény folytonos az $a\in\mathcal{D}_f$ pontban, ha
+	
+	$$\forall \varepsilon > 0 \text{ számhoz } \exists \delta > 0, \quad \forall x \in \mathcal{D}_f, \quad ||x-a|| < \delta \text{ esetén } |f(x)-f(a)| < \varepsilon \text{,}$$
+	ahol $||.||$ tetszőleges norma az $\R^2$ lineáris téren.
+	
+	\begin{question}
+		Hogyan szól a folytonosságra vonatkozó átviteli elv?
+	\end{question}
+	Legyen $(X,||.||_X)$ és $(Y,||.||_Y)$ normált tér, $f\in X\to Y$ és $a\in\mathcal{D}_f$. Ekkor:
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item $f\in C\{a\} \Longleftrightarrow \forall (x_n): \N\to\mathcal{D}_f,\quad \lim\limits_{n\to+\infty}x_n \overset{\hbox{$||.||_X$}}{=}  a \text{ sorozatra } \lim\limits_{n\to+\infty}f(x_n) \overset{\hbox{$||.||_Y$}}{=} f(a)$.
+		\item Tegyük fel, hogy $(x_n):\N\to\mathcal{D}_f, \lim\limits_{n\to+\infty}x_n \overset{\hbox{$||.||_X$}}{=}  a \text{ és } \lim\limits_{n\to+\infty}f(x_n) \overset{\hbox{$||.||_Y$}}{\ne} f(a)$. Ekkor az $f$ függvény nem folytonos $a$-ban.
+	\end{enumerate}
+	\vspace{-4mm}
+
+	\begin{question}
+		Írja le a torlódási pont definícióját.
+	\end{question}
+	Legyen $(X,||.||)$ normált tér és $\emptyset \ne A\subset X$. Ekkor $a\in X$ torlódási pontja az $A$ halmaznak (jelölés: $a\in A'$), ha
+	$$\forall K(a)\subset X \text{ környezetre } K(a)\cap A \text{ végtelen halmaz.}$$
+
+	\begin{question}
+		Írja le normált terek közötti leképezésekre a határérték definícióját.
+	\end{question}
+	Legyen $(X,||.||_X)$ és $(Y,||.||_Y)$ normált tér. Az $f \in X\to Y$ függvénynek az $a\in\mathcal{D}'_f$ pontban van határértéke, ha létezik olyan $A\in Y$, hogy az
+	$$
+	\widetilde{f}(x) = \left\{\begin{array}{rl}
+	f(x), & \text{ha } x\in\mathcal{D}_f\backslash\{a\}\\
+	A, & \text{ha } x=a
+	\end{array}\right.
+	$$
+	függvény folytonos az $a\in\mathcal{D}_{\widetilde{f}}$ pontban. Ha létezik ilyen $A$, akkor az egyértelmű, és azt az $f$ függvény $a$-beli határértékének nevezzük. (Jelölés: $\lim\limits_{a}f = A$).
+
+	\begin{question}
+		Fogalmazza meg a függvények határértékére vonatkozó átviteli elvet.
+	\end{question}
+	Legyen $(X,||.||_X)$ és $(Y,||.||_Y)$ normált tér, $f\in X\to Y$ és $a\in\mathcal{D}'_f$. Ekkor:
+	\vspace{-4mm}
+	\begin{enumerate}
+		\item $\lim\limits_{a}f = A \Longleftrightarrow \forall (x_n):\N\to\mathcal{D}_f\backslash\{a\}, x_n \xrightarrow[n \to +\infty]{||.||_X} a$ esetén $f(x_n) \xrightarrow[n \to +\infty]{||.||_Y} A$.
+		\item Tegyük fel, hogy a $\mathcal{D}_f\backslash\{a\}$ halmazbeli $(x_n)$ és $(u_n)$ sorozatok mindegyike az $a\in\mathcal{D}'_f$ ponthoz konvergál és
+		$$\lim\limits_{x\to+\infty}f(x_n) \ne \lim\limits_{n\to+\infty}f(u_n)\text{.}$$
+		Ekkor az $f$ függvénynek nincs határértéke $a$-ban.
+	\end{enumerate}
+	\vspace{-4mm}
+
+	
+\end{document}

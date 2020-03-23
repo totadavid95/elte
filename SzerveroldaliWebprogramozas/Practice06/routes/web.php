@@ -1,0 +1,28 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+/*Route::get('/', function () {
+    return view('home', ['name' => 'James']);
+});*/
+
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/item/{id}', 'ItemController')->name('item');
+
+// New list
+Route::get('/new-list', 'NewListController@index')->name('new-list-index');
+Route::post('/new-list', 'NewListController@store')->name('new-list-store');
+
+// New item
+Route::get('/new-item', 'NewItemController@index')->name('new-item-index');
+

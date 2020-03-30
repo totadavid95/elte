@@ -42,5 +42,23 @@ class ShoppingListController extends Controller
                             ->with('result', $result)
                             ->with('list', $list);
     }
+
+    public function indexEdit($id) {
+        $list = ShoppingList::find($id);
+        return view('shopping-lists.edit-shopping-list')->with('list', $list);
+    }
+
+    public function update(Request $request, $id) {
+        $validated_data = $request->validate([
+            'name' => 'required|min:3',
+        ]);
+
+        $list = ShoppingList::find($id);
+        $list->update($validated_data);
+
+        return redirect()->route('edit-shopping-list', ['id' => $list->id])
+                            ->with('list', $list);
+    }
+
 }
 

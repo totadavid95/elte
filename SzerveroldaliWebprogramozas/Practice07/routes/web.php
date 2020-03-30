@@ -24,8 +24,13 @@ Route::redirect('/', '/shopping-lists');
 Route::get( '/shopping-lists',                      'ShoppingListController@indexAll'   )    ->name('shopping-lists');
 Route::get( '/shopping-list/{id}',                  'ShoppingListController@indexItem'  )    ->name('shopping-list');
 
+// Új bevásárlólista hozzáadása
 Route::get( '/add-shopping-list',                   'ShoppingListController@indexAdd'   )     ->name('add-shopping-list');
 Route::post('/add-shopping-list',                   'ShoppingListController@store'      )     ->name('store-shopping-list');
+
+// Bevásárlólista módosítása
+Route::get( '/edit-shopping-list/{id}',             'ShoppingListController@indexEdit'   )     ->name('edit-shopping-list');
+Route::post('/edit-shopping-list/{id}',             'ShoppingListController@update'      )     ->name('update-shopping-list');
 
 // List items
 Route::get( '/shopping-list/{id}/add-list-item',    'ListItemController@indexAdd'       )     ->name('add-list-item');

@@ -20,12 +20,14 @@
                             <h6 class="dropdown-header">Elérhető műveletek</h6>
                             <a class="dropdown-item" href="{{ route('shopping-list', ['id' => $list->id]) }}"><i class="fas fa-list text-primary"></i> Megtekintés</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"><i class="far fa-edit text-success"></i> Módosítás</a>
+                            <a class="dropdown-item" href="{{ route('edit-shopping-list', ['id' => $list->id]) }}">
+                                <i class="far fa-edit text-success"></i> Módosítás
+                            </a>
                             <a class="dropdown-item" href="#"><i class="far fa-trash-alt text-danger"></i> Törlés</a>
                         </div>
                     </div>
                 </div>
-                <p class="mb-1">x elem, létrehozva: {{ $list->created_at }}</p>
+                <p class="mb-1">{{ $list->items->count() }} elem, létrehozva: {{ $list->created_at }}</p>
             </div>
         @endforeach
     </div>

@@ -32,6 +32,10 @@ Route::post('/add-shopping-list',                   'ShoppingListController@stor
 Route::get( '/edit-shopping-list/{id}',             'ShoppingListController@indexEdit'   )     ->name('edit-shopping-list');
 Route::post('/edit-shopping-list/{id}',             'ShoppingListController@update'      )     ->name('update-shopping-list');
 
+// Bevásárlólista törlése
+Route::get( '/delete-shopping-list',                'ShoppingListController@indexDelete' )     ->name('delete-shopping-list');
+Route::post('/delete-shopping-list/{id}',           'ShoppingListController@delete'      )     ->name('delete-shopping-list-post');
+
 // List items
-Route::get( '/shopping-list/{id}/add-list-item',    'ListItemController@indexAdd'       )     ->name('add-list-item');
-Route::post('/shopping-list/{id}/add-list-item',    'ListItemController@store'          )     ->name('store-list-item');
+Route::get( '/shopping-list/{id}/add-list-item',    'ListItemController@indexAdd'        )     ->name('add-list-item');
+Route::post('/shopping-list/{id}/add-list-item',    'ListItemController@store'           )     ->name('store-list-item');

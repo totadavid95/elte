@@ -18,12 +18,17 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <h6 class="dropdown-header">Elérhető műveletek</h6>
-                            <a class="dropdown-item" href="{{ route('shopping-list', ['id' => $list->id]) }}"><i class="fas fa-list text-primary"></i> Megtekintés</a>
+                            <a class="dropdown-item" href="{{ route('shopping-list', ['id' => $list->id ]) }}"><i class="fas fa-list text-primary"></i> Megtekintés</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('edit-shopping-list', ['id' => $list->id]) }}">
+                            <a class="dropdown-item" href="{{ route('edit-shopping-list', ['id' => $list->id ]) }}">
                                 <i class="far fa-edit text-success"></i> Módosítás
                             </a>
-                            <a class="dropdown-item" href="#"><i class="far fa-trash-alt text-danger"></i> Törlés</a>
+                            <form action="{{ route('delete-shopping-list-post', ['id' => $list->id ]) }}" method="post">
+                                @csrf
+                                <button class="dropdown-item">
+                                    <i class="far fa-trash-alt text-danger"></i> Törlés
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

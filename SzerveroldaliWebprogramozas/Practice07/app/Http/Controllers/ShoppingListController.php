@@ -60,5 +60,24 @@ class ShoppingListController extends Controller
                             ->with('list', $list);
     }
 
+    public function indexDelete() {
+        return view('shopping-lists.delete-shopping-list');
+    }
+
+    public function delete(Request $request, $id) {
+        $list = ShoppingList::find($id);
+        $name = null;
+        $result = false;
+
+        if ($list != null) {
+            $name = $list->name;
+            $result = $list->delete();
+        }
+
+        return redirect()->route('delete-shopping-list')
+                    ->with('result', $result)
+                    ->with('name', $name);
+    }
+
 }
 

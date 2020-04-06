@@ -5,6 +5,25 @@
 @section('content')
     <h1 class="text-center my-4">Új elem hozzáadása ide: <strong>{{ $shoppinglist->name }}</strong></h1>
 
+    @if (session()->has('result'))
+        @if (session()->get('result') == true)
+            <div class="alert alert-success" role="alert">
+                A(z) <strong>{{ session()->get('list_item')->name }}</strong> nevű elem sikeresen hozzá lett adva!
+            </div>
+        @endif
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <p>A validáció során az alábbi hibák történtek:</p>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="alert alert-secondary" role="alert">
         Új elem hozzáadása a listához.
     </div>

@@ -5,6 +5,12 @@
 @section('content')
     <h1 class="text-center header my-3">Bevásárlólisták</h1>
 
+    @guest
+
+    Vendég
+
+    @endguest
+
     <div class="list-group">
         @foreach ($lists as $list)
             <div class="list-group-item list-group-item-action flex-column align-items-start">

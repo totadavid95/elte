@@ -39,3 +39,7 @@ Route::post('/delete-shopping-list/{id}',           'ShoppingListController@dele
 // List items
 Route::get( '/shopping-list/{id}/add-list-item',    'ListItemController@indexAdd'        )     ->name('add-list-item');
 Route::post('/shopping-list/{id}/add-list-item',    'ListItemController@store'           )     ->name('store-list-item');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
